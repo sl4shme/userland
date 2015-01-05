@@ -38,7 +38,7 @@ git=$?
 if [ "$git" != "0" ]; then
     echo "Installing git"
     pacman -Sy
-    pacman -S git
+    pacman -S git --noconfirm
 fi
 
 
@@ -56,7 +56,7 @@ puppet=$?
 if [ "$puppet" != "0" ]; then
     echo "Installing puppet"
     pacman -Sy
-    pacman -S puppet
+    pacman -S puppet --noconfirm
 fi
 
 
