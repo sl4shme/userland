@@ -65,7 +65,7 @@ class userland::vim(
         }
 
         exec {'rootVimInstall' :
-            command     => "export http_proxy=$userland::installer::httpProxy ; export https_proxy=$userland::installer::httpsProxy ; vim -u /root/.vim/.vimrcInsVundle +PluginInstall +qall'",
+            command     => "/usr/bin/export http_proxy=$userland::installer::httpProxy ; export https_proxy=$userland::installer::httpsProxy ; vim -u /root/.vim/.vimrcInsVundle +PluginInstall +qall'",
             require     => File["/root/.vim"],
             onlyif      => "/usr/bin/ls /root/.vim/bundle | wc -l | grep 1",
         }
