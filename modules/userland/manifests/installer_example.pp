@@ -171,6 +171,7 @@ $httpsProxy=""
 #class {'userland::i3' :
 #    mainInterface => "", #network interface for ip monitoring
 #    laptop        => false,
+#    stage         => 'package',
 #}
 
 
