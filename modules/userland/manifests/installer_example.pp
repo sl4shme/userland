@@ -90,9 +90,7 @@ $httpsProxy=""
 #Ssh daemon
 ##
 
-#service { 'sshd' :
-#    ensure => running,
-#    enable => true,
+#class { 'userland::ssh' :
 #    stage        => 'package',
 #}
 
