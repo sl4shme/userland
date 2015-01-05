@@ -42,10 +42,13 @@ if [ "$git" != "0" ]; then
 fi
 
 
-#cloned=`cat $execPath/.git/config | grep -c 'https://github.com/sl4shme/userland.git'`
-#if [ "$cloned" = "1" ]; then
-    #git clone --recursive https://github.com/sl4shme/userland.git /etc/puppet
-#fi
+cloned=`cat $execPath/.git/config | grep -c 'https://github.com/sl4shme/userland.git'`
+if [ "$cloned" = "1" ]; then
+    git clone --recursive https://github.com/sl4shme/userland.git /etc/puppet
+    if [ "$?" != "0" ]; then
+        exit 1
+    fi
+fi
 
 
 command -v puppet >/dev/null 2>&1
@@ -55,6 +58,18 @@ if [ "$puppet" != "0" ]; then
     pacman -Sy
     pacman -S puppet
 fi
+
+
+while [ -d "/etc/puppet/modules/userland/files/enc/" ]; do
+    #Use this commands to encrypt :
+    #cd /etc/puppet/modules/userland/files/
+    #tar -cvf /etc/puppet/modules/userland/files/enc.tar.gz /enc/
+    #openssl aes-256-cbc -a -salt -in /etc/puppet/modules/userland/files/enc.tar.gz -out /etc/puppet/modules/userland/files/enc.tar.gz.enc
+    echo "Uncrypting your crypted folder"
+    openssl aes-256-cbc -d -a -in /etc/puppet/modules/userland/files/enc.tar.gz.enc -out /etc/puppet/modules/userland/files/enc.tar.gz
+    tar -xvf /etc/puppet/modules/userland/files/enc.tar.gz -C /etc/puppet/modules/userland/files/
+done
+
 
 confirm="n"
 while [ "$confirm" != 'y' ] || [ "$confirm" != 'Y' ]; do
@@ -90,15 +105,9 @@ done
 
 #prevenir pour USER password
 
-    #dechiffrement de userland/files/enc en enc.tar.gz puis detar directement dans file/enc/
-        #Use command to encrypt : openssl aes-256-cbc -a -salt -in secrets.txt -out secrets.txt.enc
-                #openssl aes-256-cbc -d -a -in $resd/sshkey.tar.gz.enc -out $resd/sshkey.tar.gz
-                        #tar -xf $resd/sshkey.tar.gz -C $resd/
-
-
-
-    #verif perms before packaging
+#verif perms before packaging
 
 #set cron ? / uninstall / rm ressources
+
 #logs
 
