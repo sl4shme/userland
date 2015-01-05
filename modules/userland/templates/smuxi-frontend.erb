@@ -1,0 +1,28 @@
+[Frontend]
+UseLowBandwidthMode = False
+ShowMenuBar = True
+ShowToolBar = True
+ShowStatusBar = True
+[Frontend/Engines]
+Engines = <%= scope.lookupvar('userland::smuxi_client::engineName') %>
+Default = <%= scope.lookupvar('userland::smuxi_client::engineName') %>
+[Frontend/Engines/<%= scope.lookupvar('userland::smuxi_client::engineName') %>]
+SshPassword = 
+Port = 7689
+Hostname = localhost
+SshKeyfile = <%= scope.lookupvar('userland::smuxi_client::sshKey') %> 
+SshUsername = <%= scope.lookupvar('userland::smuxi_client::sshUser') %>
+UseSshTunnel = True
+SshHostname = <%= scope.lookupvar('userland::smuxi_client::sshHost') %>
+Channel = TCP
+SshPort = <%= scope.lookupvar('userland::smuxi_client::sshPort') %>
+Password = <%= scope.lookupvar('userland::smuxi_client::engineUser') %>
+Username = <%= scope.lookupvar('userland::smuxi_client::enginePass') %>
+Formatter = binary
+[Frontend/GNOME/JoinBar]
+ActiveNetwork = freenode
+[Frontend/GNOME/Interface]
+Heigth = 1161
+XPosition = 0
+YPosition = 37
+Width = 1916

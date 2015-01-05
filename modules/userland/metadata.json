@@ -1,0 +1,14 @@
+{
+  "name": "sl4shme-userland",
+  "version": "0.1.0",
+  "author": "sl4shme",
+  "summary": "My userand configuration",
+  "license": "Apache 2.0",
+  "source": "https://github.com/sl4shme/userland",
+  "project_page": "https://github.com/sl4shme/userland",
+  "issues_url": "https://github.com/sl4shme/userland/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+

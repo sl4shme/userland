@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# dmenu_path: Override dmenu_path sorting results by atime.
+#
+# By default, dmenu_path sorts executables alphabetically. It seems to make
+# more sense to sort them by atime in an effort to reduce the number of
+# keystrokes needed to start a program.
+echo $PATH | tr ':' '\n' | uniq | sed 's#$#/#' | # List directories in $PATH
+xargs ls -lu --time-style=+%s | # Add atime epoch
+awk '/^(-|l)/ { print $6, $7 }' | # Only print timestamp and name
+sort -rn | cut -d' ' -f 2
+
+
+
+#OLD CODE
+#cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}
+#if [ -d "$cachedir" ]; then
+#	cache=$cachedir/dmenu_run
+#else
+#	cache=$HOME/.dmenu_cache # if no xdg dir, fall back to dotfile in ~
+#fi
+#IFS=:
+#if stest -dqr -n "$cache" $PATH; then
+#	stest -flx $PATH | sort -u | tee "$cache"
+#else
+#	cat "$cache"
+#fi
+

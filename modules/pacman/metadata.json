@@ -1,0 +1,37 @@
+{
+  "name": "pnd-pacman",
+  "version": "0.9.3",
+  "author": "Edvinas Klovas <edvinas@pnd.io>",
+  "summary": "Puppet module for managing Pacman configuration, repositories and mirrorlist. Provides ability to install packages from AUR.",
+  "license": "MIT License",
+  "source": "https://github.com/edvinasme/puppet-pacman",
+  "project_page": "https://github.com/edvinasme/puppet-pacman",
+  "issues_url": "https://github.com/edvinasme/puppet-pacman/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Archlinux",
+      "operatingsystemrelease": [
+  
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": "2.7"
+    }
+  ],
+  "description": "Pacman and AUR module for Puppet",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.0.0"
+    },
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">= 1.0.0"
+    },
+    {"name":"puppetlabs/stdlib","version_requirement":">= 4.0.0"},
+    {"name":"puppetlabs/concat","version_requirement":">= 1.0.0"}
+  ]
+}

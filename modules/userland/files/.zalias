@@ -1,0 +1,12 @@
+#Package Stuff
+alias ins="sudo pacman -S"
+alias rem="sudo pacman -R"
+alias updg="sudo pacman -Syu"
+alias search="sudo pacman -Ss"
+
+#Ssh Stuff
+#Will use mainSshServ, mainSshPort and mainSshUser environment variable.
+#Usualy set in .zshenv
+
+alias sshserv='if [ "$mainSshServ" != "" ]; then ssh -p $mainSshPort $mainSshUser@$mainSshServ ; else echo "mainSsh variables no set." ; fi'
+alias socksserv='if [ "$mainSshServ" != "" ]; then echo "Configure your app with 127.0.0.1 port 2222, CTRL+C to stop." ; ssh -Nn -D 2222 $mainSshUser@$mainSshServ -p $mainSshPort ; else echo "mainSsh variables no set." ; fi'

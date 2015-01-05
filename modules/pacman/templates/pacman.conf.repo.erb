@@ -1,0 +1,10 @@
+[<%= @name %>]
+<%- if @server == 'mirrorlist' -%>
+Include = <%= @pacman_config_d %>mirrorlist
+<%- else -%>
+Server = <%= @server %>
+<%- end -%>
+<%- if defined? @sig_level -%>
+SigLevel = <%= @sig_level %>
+<%- end -%>
+

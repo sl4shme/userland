@@ -1,0 +1,6 @@
+Description="Principal Bridge"
+Interface=br0                 
+Connection=bridge             
+BindsToInterfaces=(<%= scope.lookupvar('userland::kvm::interfaceToBridge') %>)      
+IP=dhcp                       
+

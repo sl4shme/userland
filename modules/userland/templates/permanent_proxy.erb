@@ -1,0 +1,11 @@
+export http_proxy=<%= scope.lookupvar('userland::installer::httpProxy') %>
+export ftp_proxy=<%= scope.lookupvar('userland::installer::httpProxy') %>
+export rsync_proxy=<%= scope.lookupvar('userland::installer::httpProxy') %>
+export https_proxy=<%= scope.lookupvar('userland::installer::httpsProxy') %>
+export noproxy="localhost,127.0.0.1,localaddress"
+export HTTP_PROXY=<%= scope.lookupvar('userland::installer::httpProxy') %>
+export FTP_PROXY=<%= scope.lookupvar('userland::installer::httpProxy') %>
+export RSYNC_PROXY=<%= scope.lookupvar('userland::installer::httpProxy') %>
+export HTTPS_PROXY=<%= scope.lookupvar('userland::installer::httpsProxy') %>
+export NOPROXY="localhost,127.0.0.1,localaddress"
+
