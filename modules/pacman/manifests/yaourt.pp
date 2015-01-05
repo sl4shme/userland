@@ -32,9 +32,6 @@
 #
 class pacman::yaourt(
 ) {
-  package { 'curl':
-    ensure => 'present',
-  }
   package { 'bc':
     ensure => 'present',
   }

@@ -14,32 +14,32 @@ class userland::packages (
         }
     }
     if $dev {
-        $list = ["python","python-pip","flake8"]
-        package { $list :
+        $list1 = ["python","python-pip","flake8"]
+        package { $list1 :
             ensure => installed,
         }
     }
     if $network {
-        $list = ["nmap","tcpdump","openbsd-netcat","dnsutils","net-tools"]
-        package { $list :
+        $list2 = ["nmap","tcpdump","openbsd-netcat","dnsutils","net-tools"]
+        package { $list2 :
             ensure => installed,
         }
     }
     if $multimedia {
-        $list = ["vlc","libreoffice"]
-        package { $list :
+        $list3 = ["vlc","libreoffice"]
+        package { $list3 :
             ensure => installed,
         }
     }
      if $graphicalApp {
-        $list = ["xarchiver","pcmanfm","xorg-xcalc","gedit","imagemagick","gvfs","gvfs-mtp","gvfs-afc"]
-        package { $list :
+        $list4 = ["xarchiver","pcmanfm","xorg-xcalc","gedit","imagemagick","gvfs","gvfs-mtp","gvfs-afc"]
+        package { $list4 :
             ensure => installed,
         }
     }
    if $rdp {
-        $list = ["freerdp","remmina"]
-        package { $list :
+        $list5 = ["freerdp","remmina"]
+        package { $list5 :
             ensure => installed,
         }
     }

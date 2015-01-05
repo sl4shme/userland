@@ -86,15 +86,15 @@ $httpsProxy=""
 #}
 
 
-##                                         
-#Ssh daemon                           
-##                                         
-                                           
-#package { 'sshd'            
+##
+#Ssh daemon
+##
+
+#service { 'sshd' :
 #    ensure => running,
 #    enable => true,
-#    stage        => 'package',            
-#}                                         
+#    stage        => 'package',
+#}
 
 
 ##

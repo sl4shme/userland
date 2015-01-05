@@ -42,8 +42,8 @@ if [ "$git" != "0" ]; then
 fi
 
 
-cloned=`cat $execPath/.git/config | grep -c 'https://github.com/sl4shme/userland.git'`
-if [ "$cloned" = "1" ]; then
+cloned=`cat /etc/puppet/.git/config | grep -c 'https://github.com/sl4shme/userland.git'`
+if [ "$cloned" != "1" ]; then
     git clone --recursive https://github.com/sl4shme/userland.git /etc/puppet
     if [ "$?" != "0" ]; then
         exit 1
@@ -60,7 +60,7 @@ if [ "$puppet" != "0" ]; then
 fi
 
 
-while [ -d "/etc/puppet/modules/userland/files/enc/" ]; do
+while [ ! -d "/etc/puppet/modules/userland/files/enc/" ]; do
     #Use this commands to encrypt :
     #cd /etc/puppet/modules/userland/files/
     #tar -cvf /etc/puppet/modules/userland/files/enc.tar.gz /enc/
@@ -72,13 +72,13 @@ done
 
 
 confirm="n"
-while [ "$confirm" != 'y' ] || [ "$confirm" != 'Y' ]; do
+while [ "$confirm" != "y" ] && [ "$confirm" != "Y" ]; do
     if [ -a "/etc/puppet/modules/userland/manifests/installer.pp" ]; then
         echo "Found an installer file. What to do ? Edit/Use/Delete [e]"
         read resp
             case $resp in
                ""| e|E)
-                    $EDITOR /etc/puppet/modules/userland/manifests/installer.pp
+                    nano /etc/puppet/modules/userland/manifests/installer.pp
                     echo "Go with this file ? [N/y]"
                     read confirm
                 ;;
@@ -99,7 +99,7 @@ while [ "$confirm" != 'y' ] || [ "$confirm" != 'Y' ]; do
     fi
 done
 
-
+puppet apply /etc/puppet/modules/userland/manifests/installer.pp
 
 #Preconfigure dans le puppet
 
