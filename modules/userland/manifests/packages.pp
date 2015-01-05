@@ -8,7 +8,7 @@ class userland::packages (
     $rdp          = false,
 ) {
     if $base {
-        $list = ["tmux","wget","unzip","git","openssl","mlocate","lsof","most","openssh","curl"]
+        $list = ["tmux","wget","unzip","git","openssl","mlocate","lsof","most","openssh"]
         package { $list :
             ensure => installed,
         }

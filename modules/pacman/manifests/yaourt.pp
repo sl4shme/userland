@@ -36,10 +36,14 @@ class pacman::yaourt(
     ensure => 'present',
   }
 
+  package { 'curl':
+    ensure => 'present',
+  }
+
   exec { 'pacman-base-devel':
     command   => '/usr/bin/pacman -S base-devel --needed --noconfirm',
     unless    => '/usr/bin/pacman -Qk yaourt',
-    require   => Package['bc'],
+    require   => [Package['curl'], Package['bc']],
     logoutput => 'on_failure',
   }
 

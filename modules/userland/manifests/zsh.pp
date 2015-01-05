@@ -2,7 +2,7 @@ class userland::zsh (
     $forUser = false,
     $forRoot = false,
 ){
-    package{["zsh","fortune-mod"] :
+    package{ ["zsh","fortune-mod"] :
         ensure => installed,
     }
 
