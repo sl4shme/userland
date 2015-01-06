@@ -88,15 +88,4 @@ class userland::config_user(
             source  => "puppet:///modules/userland/enc/id_rsa.pub",
         }
     }
-
-    if $manageSudoers {
-        file {"/etc/sudoers" :
-            ensure  => file,
-            owner   => "root",
-            group   => "root",
-            mode    => 440,
-            source  => "puppet:///modules/userland/sudoers",
-        }
-    }
 }
-

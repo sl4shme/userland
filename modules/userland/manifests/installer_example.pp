@@ -39,13 +39,24 @@ $httpProxy=""
 $httpsProxy=""
 #class {'userland::permanent_proxy' : }
 
+##
+#Manage Sudoers
+##
+
+#class {'userland::sudo' :
+#    envKeepProxy => false,
+#    allowWheel   => false,
+#    allowYaourt  => false,
+#    stage        => 'pacman',
+#}
+
 
 ##
 #Configure Pacman and Yaourt
 ##
 
 #class {'userland::package_manager' :
-#    installYaourt   => false,
+#    installYaourt   => false, #Require sudo allowYaourt and encKeepProxy
 #    iLoveCandy      => false,
 #    enableCore      => true, 
 #    enableExtra     => true, 
@@ -71,8 +82,6 @@ $httpsProxy=""
 #    username         => $username,
 #    manageUserSshKey => false,
 #    manageRootSshKey => false,
-#    manageSudoers    => false,
-#
 #}
 
 

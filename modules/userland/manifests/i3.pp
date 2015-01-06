@@ -37,7 +37,7 @@ class userland::i3 (
     file { '/usr/libexec/i3blocks/bandwitch' :
         ensure  => file,
         source  => "puppet:///modules/userland/bandwitch",
-        require => Pacman::Aur['i3blocks'],
+        require => Userland::Aur['i3blocks'],
     }
 
     file { "/home/$userland::installer::username/.i3/" :
