@@ -1,3 +1,3 @@
 class userland::torrent {
-    pacman::aur { 'qbittorrent' : }
+    userland::aur { 'qbittorrent' : }
 }

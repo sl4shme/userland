@@ -9,7 +9,7 @@ class userland::i3 (
         ensure => installed,
     }
 
-    pacman::aur { 'i3blocks' : 
+    userland::aur { 'i3blocks' : 
         require => Package['i3'],
     }
 

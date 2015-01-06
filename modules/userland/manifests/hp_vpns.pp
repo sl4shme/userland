@@ -7,9 +7,9 @@ class userland::hp_vpns (
             ensure => installed,
         }
 
-        pacman::aur { 'python2-elementtidy' : }
+        userland::aur { 'python2-elementtidy' : }
 
-        pacman::aur { 'python-elementtree' : }
+        userland::aur { 'python-elementtree' : }
 
         file { "/home/$userland::installer::username/hpcs_vpn/" :
             ensure  => directory,

@@ -1,30 +1,25 @@
 class userland::package_manager(
-    $installYaourt  = false,
-    $iLoveCandy     = false,
-    $enableMultilib = false,
+    $installYaourt   = false,
+    $iLoveCandy      = false,
+    $enableCore      = true,
+    $enableExtra     = true,
+    $enableCommunity = true,
+    $enableMultilib  = false,
 ) {
-    if $enableMultilib{
-        $repositories = {
-            'core'      => { order => '10', },
-            'extra'     => { order => '20', },
-            'community' => { order => '30', },
-            'multilib'  => { order => '40', },
-        }
+    file{ '/etc/pacman.conf' :
+        ensure  => file,
+        content => template("userland/pacman.conf.erb"),
+        mode    => 644,
+        owner   => "root",
+        group   => "root",
     }
-    else {
-         $repositories = {
-            'core'      => { order => '10', },
-            'extra'     => { order => '20', },
-            'community' => { order => '30', },
-        }
-    }
-    class { 'pacman':
-        repositories => $repositories,
-        iLoveCandy   => $iLoveCandy
+
+    file{ '/etc/pacman.d/otherRepo' :
+        ensure => file,
     }
 
     if $installYaourt{
-       class {"pacman::yaourt" : }
+       class {"userland::yaourt" : }
     }
 }
 

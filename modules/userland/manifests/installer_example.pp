@@ -1,5 +1,10 @@
 class userland::installer {
-
+stage { 'pacman':
+    before => Stage['pacman_refresh'],
+}
+stage { 'pacman_refresh' :
+    before => Stage['main'],
+}
 stage { 'package':
     require => Stage['main'],
 }
@@ -40,10 +45,21 @@ $httpsProxy=""
 ##
 
 #class {'userland::package_manager' :
-#    installYaourt  => false,
-#    iLoveCandy     => false,
-#    enableMultilib => false,
+#    installYaourt   => false,
+#    iLoveCandy      => false,
+#    enableCore      => true, 
+#    enableExtra     => true, 
+#    enableCommunity => true, 
+#    enableMultilib  => false,
+#    stage           => 'pacman'
 #}
+
+
+##
+#Refresh Pacman database on every run
+##
+
+#class {'userland::pacman_refresh': }
 
 
 ##
@@ -56,6 +72,7 @@ $httpsProxy=""
 #    manageUserSshKey => false,
 #    manageRootSshKey => false,
 #    manageSudoers    => false,
+#
 #}
 
 
@@ -113,6 +130,7 @@ $httpsProxy=""
 #class {'userland::zsh' :
 #    forUser => false,
 #    forRoot => false,
+#    stage   => package,
 #}
 
 
@@ -128,7 +146,9 @@ $httpsProxy=""
 #Require userland::package_manager
 ##
 
-#class {'userland::hipchat_repo' : }
+#class {'userland::hipchat_repo' : 
+#    stage => 'pacman',
+#}
 #class {'userland::hipchat' :
 #    stage => 'package',
 #}
@@ -166,6 +186,7 @@ $httpsProxy=""
 
 ##
 #I3 installation and configuration
+#Require yaourt
 ##
 
 #class {'userland::i3' :

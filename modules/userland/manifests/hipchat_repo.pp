@@ -1,14 +1,13 @@
 class userland::hipchat_repo {
     exec {"importKey" :
         command => '/usr/bin/curl https://www.hipchat.com/keys/hipchat-linux.key | GNUPGHOME=/etc/pacman.d/gnupg gpg --import',
-        unless  => '/usr/bin/cat /etc/pacman.conf | grep atlassian',
-        before  => Pacman::Repo['atlassian'],
+        unless  => '/usr/bin/cat /etc/pacman.d/otherRepo | grep atlassian',
+        before  => Userland::Other_repo['atlassian'],
     }
 
-    pacman::repo { 'atlassian':
-        server    => 'http://downloads.hipchat.com/linux/arch/$arch',
-        order     => '50',
-        sig_level => 'PackageOptional DatabaseRequired TrustAll',
-        before    => Exec[pacman-refresh],
+    userland::other_repo { 'atlassian' :
+        name     => "atlassian",
+        server   => "http://downloads.hipchat.com/linux/arch/$arch",
+        sigLevel => 'PackageOptional DatabaseRequired TrustAll'
     }
 }

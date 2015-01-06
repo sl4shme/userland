@@ -13,7 +13,7 @@ class userland::firefox (
     }
 
     if $gtalk {
-        pacman::aur { 'google-talkplugin' : }
+       userland::aur { 'google-talkplugin' : }
     }
 }
 
