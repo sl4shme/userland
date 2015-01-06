@@ -4,15 +4,15 @@ define userland::aur(
     case $ensure {
         'present': {
             exec { "aur::install::${name}":
-                command   => "/usr/bin/yaourt -S --noconfirm ${name}",
-                unless    => "/usr/bin/yaourt -Qk ${name}",
+                command   => "/usr/bin/su yaourt -lc 'export http_proxy=$userland::installer::httpProxy ; export https_proxy=$userland::installer::httpsProxy ; yaourt -S --noconfirm ${name}'",
+                unless    => "/usr/bin/su yaourt -lc 'export http_proxy=$userland::installer::httpProxy ; export https_proxy=$userland::installer::httpsProxy ; yaourt -Qk ${name}'",
                 logoutput => 'on_failure',
             }
         }
         'absent': {
             exec { "aur::remove::${name}":
-                command   => "/usr/bin/yaourt -Rs ${name}",
-                onlyif    => "/usr/bin/yaourt -Qi ${name}",
+                command   => "/usr/bin/su yaourt -lc 'export http_proxy=$userland::installer::httpProxy ; export https_proxy=$userland::installer::httpsProxy ; yaourt -Rs ${name}'",
+                onlyif    => "/usr/bin/su yaourt -lc 'export http_proxy=$userland::installer::httpProxy ; export https_proxy=$userland::installer::httpsProxy ; yaourt -Qi ${name}'",
                 logoutput => 'on_failure',
             }
         }
