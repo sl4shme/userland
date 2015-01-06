@@ -1,8 +1,8 @@
 #!/bin/bash
 mkdir /tmp/insYaourt
 cd /tmp/insYaourt
-pacman-db-upgrade
-pacman -Sy
+sudo pacman-db-upgrade
+sudo pacman -Sy
 sudo pacman -S --noconfirm curl base-devel bc
 curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
 tar zxvf package-query.tar.gz

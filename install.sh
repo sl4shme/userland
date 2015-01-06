@@ -103,11 +103,11 @@ puppet apply /etc/puppet/modules/userland/manifests/installer.pp
 
 #Preconfigure dans le puppet
 
-#prevenir pour USER password
+#prevenir pour USER password et yaourt password
 
 #verif perms before packaging
 
 #set cron ? / uninstall / rm ressources
 
-#logs
+#logs tee
 

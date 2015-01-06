@@ -22,8 +22,8 @@ class userland::yaourt {
     exec { 'install_yaourt':
         command     => "/usr/bin/su yaourt -lc 'export http_proxy=$userland::installer::httpProxy ; export https_proxy=$userland::installer::httpsProxy ; /tmp/yaourtinstaller.sh'",
         unless      => '/usr/bin/pacman -Qk yaourt',
-        require     => File['/tmp/yaourtinstaller.sh'],
         logoutput   => 'on_failure',
-        require     => File_line['sudo_yaourt'],
+        require     => [File['/tmp/yaourtinstaller.sh'],File_line['sudo_yaourt'],File_line['proxy_ftp']],
+
     }
 }

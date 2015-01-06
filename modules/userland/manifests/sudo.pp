@@ -59,7 +59,7 @@ class userland::sudo (
         file_line{ "sudo_yaourt" :
             path     => '/etc/sudoers',
             ensure   => present,
-            line     => 'yaourt ALL=(ALL) NOPASSWD: pacman',
+            line     => 'yaourt ALL=(ALL) NOPASSWD: /usr/bin/pacman, /usr/bin/pacman-db-upgrade',
             multiple => false,
             after    => 'root ALL=(ALL) ALL',
         }
