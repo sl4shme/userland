@@ -18,7 +18,7 @@ class userland::kvm (
         }
 
         service { 'netctl@bridge.service' :
-#            ensure => running,
+            ensure => running,
             enable => true,
             require => File['/etc/netctl/bridge']
         }
