@@ -279,6 +279,7 @@ $httpsProxy=""
 #    email    => "",
 #    forRoot  => true,
 #    forUser  => true,
+#    stage    => 'package',
 #}
 
 

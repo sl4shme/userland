@@ -54,7 +54,7 @@ class userland::vim(
             owner   => "root",
             group   => "root",
         }
-        
+
         file { "/root/.vim/.vimrcInsVundle" :
             ensure  => file,
             source  => "puppet:///modules/userland/.vimrcInsVundle",
@@ -65,9 +65,10 @@ class userland::vim(
         }
 
         exec {'rootVimInstall' :
-            command     => "/usr/bin/export http_proxy=$userland::installer::httpProxy ; export https_proxy=$userland::installer::httpsProxy ; vim -u /root/.vim/.vimrcInsVundle +PluginInstall +qall'",
+            command     => "/usr/bin/vim -u /root/.vim/.vimrcInsVundle +PluginInstall +qall'",
             require     => File["/root/.vim"],
             onlyif      => "/usr/bin/ls /root/.vim/bundle | wc -l | grep 1",
+            environment => ["http_proxy=$userland::installer::httpProxy","http_proxy=$userland::installer::httpProxy"],
         }
     }
 }

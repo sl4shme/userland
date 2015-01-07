@@ -7,7 +7,7 @@ class userland::ntp (
     }
 
     exec{ 'systemd_ntp' :
-        command => '/usr/bin/ timedatectl set-ntp true',
+        command => '/usr/bin/timedatectl set-ntp true',
         unless  => '/usr/bin/timedatectl | grep "NTP enabled: yes"',
         require => File['/etc/systemd/timesyncd.conf'],
     }

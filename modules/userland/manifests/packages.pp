@@ -20,7 +20,7 @@ class userland::packages (
         }
     }
     if $network {
-        $list2 = ["nmap","tcpdump","openbsd-netcat","dnsutils","net-tools"]
+        $list2 = ["nmap","tcpdump","openbsd-netcat","dnsutils"]
         package { $list2 :
             ensure => installed,
         }
