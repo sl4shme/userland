@@ -26,7 +26,7 @@ class userland::packages (
         }
     }
     if $multimedia {
-        $list3 = ["vlc","libreoffice"]
+        $list3 = ["vlc","libreoffice-fresh"]
         package { $list3 :
             ensure => installed,
         }
