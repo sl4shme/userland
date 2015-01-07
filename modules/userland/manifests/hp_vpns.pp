@@ -7,9 +7,18 @@ class userland::hp_vpns (
             ensure => installed,
         }
 
-        userland::aur { 'python2-elementtidy' : }
+        file  { '/tmp/depinstall.sh' :
+            ensure => file,
+            mode   => 774,
+            source => "puppet:///modules/userland/depinstall.sh",
+        }
 
-        userland::aur { 'python-elementtree' : }
+        exec { 'install_juniper_deps':
+            command     => "/tmp/depinstall.sh",
+            unless      => '/usr/bin/ls /usr/lib/python2.7/site-packages/ | grep -c elementtidy',
+            environment => ["http_proxy=$userland::installer::httpProxy","https_proxy=$userland::installer::httpsProxy"],
+            require     => File['/tmp/depinstall.sh'],
+        }
 
         file { "/home/$userland::installer::username/hpcs_vpn/" :
             ensure  => directory,

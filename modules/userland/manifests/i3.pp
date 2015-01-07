@@ -56,10 +56,11 @@ class userland::i3 (
     }
 
     file { "/usr/bin/dmenu_path" :
-        ensure => file, 
-        source => "puppet:///modules/userland/dmenu_path",
-        owner  => 'root',
-        group  => 'root',
-        mode   => 755,
+        ensure  => file, 
+        source  => "puppet:///modules/userland/dmenu_path",
+        owner   => 'root',
+        group   => 'root',
+        mode    => 755,
+        require => Package['dmenu'], 
     }
 }
