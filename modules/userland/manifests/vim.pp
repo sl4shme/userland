@@ -65,7 +65,7 @@ class userland::vim(
         }
 
         exec {'rootVimInstall' :
-            command     => "/usr/bin/vim -u /root/.vim/.vimrcInsVundle +PluginInstall +qall'",
+            command     => "/usr/bin/vim -u /root/.vim/.vimrcInsVundle +PluginInstall +qall",
             require     => File["/root/.vim"],
             onlyif      => "/usr/bin/ls /root/.vim/bundle | wc -l | grep 1",
             environment => ["http_proxy=$userland::installer::httpProxy","http_proxy=$userland::installer::httpProxy"],
