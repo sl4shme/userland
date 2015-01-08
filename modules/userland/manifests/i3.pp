@@ -20,6 +20,15 @@ class userland::i3 (
         group   => "$userland::installer::username",
     }
 
+    file { "/home/$userland::installer::username/.i3/i3datecal" :
+        ensure  => file,
+        content => "puppet:///modules/userland/i3datecal",
+        owner   => "$userland::installer::username",
+        group   => "$userland::installer::username",
+        mode    => 774,
+        require => File["/home/$userland::installer::username/.i3/"],
+    }
+
     file { "/home/$userland::installer::username/.config/gsimplecal/" :
         ensure  => directory,
         owner   => "$userland::installer::username",
