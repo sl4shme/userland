@@ -19,7 +19,12 @@ class userland::kvm (
 
         service { 'netctl@bridge.service' :
             ensure => running,
-            enable => true,
+            require => File['/etc/netctl/bridge']
+        }
+
+        exec {'enable_bridge' :
+            command => '/usr/bin/netctl enable bridge',
+            creates => '/etc/systemd/system/multi-user.target.wants/netctl@bridge.service',
             require => File['/etc/netctl/bridge']
         }
     }
