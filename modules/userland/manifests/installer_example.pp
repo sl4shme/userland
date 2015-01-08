@@ -70,7 +70,9 @@ $httpsProxy=""
 #Refresh Pacman database on every run
 ##
 
-#class {'userland::pacman_refresh': }
+class {'userland::pacman_refresh': 
+    stage => 'pacman_refresh',
+}
 
 
 ##
