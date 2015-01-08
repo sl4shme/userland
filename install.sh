@@ -63,7 +63,7 @@ fi
 while [ ! -d "/etc/puppet/modules/userland/files/enc/" ]; do
     #Use this commands to encrypt :
     #cd /etc/puppet/modules/userland/files/
-    #tar -cvf /etc/puppet/modules/userland/files/enc.tar.gz /enc/
+    #tar -cvf /etc/puppet/modules/userland/files/enc.tar.gz enc/
     #openssl aes-256-cbc -a -salt -in /etc/puppet/modules/userland/files/enc.tar.gz -out /etc/puppet/modules/userland/files/enc.tar.gz.enc
     echo "Uncrypting your crypted folder"
     openssl aes-256-cbc -d -a -in /etc/puppet/modules/userland/files/enc.tar.gz.enc -out /etc/puppet/modules/userland/files/enc.tar.gz
