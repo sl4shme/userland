@@ -24,6 +24,11 @@ class userland::yaourt {
         unless      => '/usr/bin/pacman -Qk yaourt',
         logoutput   => 'on_failure',
         require     => [File['/tmp/yaourtinstaller.sh'],File_line['sudo_yaourt'],File_line['proxy_ftp']],
+        notify      => Exec['failer'],
+    }
 
+    exec { 'failer':
+        command     => '/usr/bin/echo "Yaourt installed, failing this run on purpose. Rerun." ; exit 1',
+        refreshonly => true,
     }
 }
