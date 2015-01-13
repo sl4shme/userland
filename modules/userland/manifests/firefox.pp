@@ -2,18 +2,16 @@ class userland::firefox (
     $flashplayer = false,
     $gtalk       = false,
 ) {
-    package { 'firefox' :
-        ensure => installed,
-    }
-
+    ensure_packages(['firefox'])
+    
     if $flashplayer {
-        package { ["libvdpau","flashplugin"] :
-            ensure => installed,
-        }
+        ensure_packages(["libvdpau","flashplugin"])
     }
 
     if $gtalk {
-       userland::aur { 'google-talkplugin' : }
+        userland::aur { 'google-talkplugin' : 
+            require => Package['Firefox'],
+        }
     }
 }
 

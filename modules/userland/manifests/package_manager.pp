@@ -1,5 +1,5 @@
 class userland::package_manager(
-    $installYaourt   = false,
+    $installPacker   = false,
     $iLoveCandy      = false,
     $enableCore      = true,
     $enableExtra     = true,
@@ -18,8 +18,8 @@ class userland::package_manager(
         ensure => file,
     }
 
-    if $installYaourt{
-       class {"userland::yaourt" : }
+    if $installPacker{
+       class {"userland::packer" : }
     }
 }
 

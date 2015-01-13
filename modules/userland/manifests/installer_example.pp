@@ -46,17 +46,17 @@ $httpsProxy=""
 #class {'userland::sudo' :
 #    envKeepProxy => false,
 #    allowWheel   => false,
-#    allowYaourt  => false,
+#    allowAur     => false,
 #    stage        => 'pacman',
 #}
 
 
 ##
-#Configure Pacman and Yaourt
+#Configure Pacman and AUR helper
 ##
 
 #class {'userland::package_manager' :
-#    installYaourt   => false, #Require sudo allowYaourt and encKeepProxy
+#    installPacker   => false, #Require sudo allowAur and envKeepProxy
 #    iLoveCandy      => false,
 #    enableCore      => true, 
 #    enableExtra     => true, 
@@ -70,9 +70,9 @@ $httpsProxy=""
 #Refresh Pacman database on every run
 ##
 
-class {'userland::pacman_refresh': 
-    stage => 'pacman_refresh',
-}
+#class {'userland::pacman_refresh': 
+#    stage => 'pacman_refresh',
+#}
 
 
 ##
@@ -89,7 +89,7 @@ class {'userland::pacman_refresh':
 
 ##
 #Install packages
-#Those ones don't need yaourt
+#Those ones don't need aur
 ##
 
 #class {'userland::packages' :
@@ -109,7 +109,7 @@ class {'userland::pacman_refresh':
 
 #class { 'userland::firefox' :
 #    flashplayer => false,
-#    gtalk       => false, # Require yaourt
+#    gtalk       => false, # Require aur
 #    stage        => 'package',
 #}
 
@@ -197,7 +197,7 @@ class {'userland::pacman_refresh':
 
 ##
 #I3 installation and configuration
-#Require yaourt
+#Require aur
 ##
 
 #class {'userland::i3' :
@@ -228,7 +228,7 @@ class {'userland::pacman_refresh':
 ##
 
 #class {'userland::hp_vpns' :
-#    juniper => false,  # require multilib and yaourt
+#    juniper => false,  # require multilib and aur
 #    openVpn => false,
 #    stage   => 'package',
 #}

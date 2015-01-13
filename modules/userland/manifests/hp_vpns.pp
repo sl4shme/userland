@@ -3,9 +3,7 @@ class userland::hp_vpns (
     $openVpn = false,
 ) {
     if $juniper {
-        package { ["lib32-zlib","lib32-glibc","python2-pexpect","net-tools"] :
-            ensure => installed,
-        }
+        ensure_packages( ["lib32-zlib","lib32-glibc","python2-pexpect","net-tools"])
 
         file  { '/tmp/depinstall.sh' :
             ensure => file,
@@ -37,9 +35,7 @@ class userland::hp_vpns (
     }
 
     if $openVpn {
-        package { 'openvpn' :
-            ensure => installed,
-        }
+        ensure_packages(['openvpn'])
 
         file { "/home/$userland::installer::username/openvpn/" :
             ensure  => directory,

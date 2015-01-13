@@ -7,9 +7,7 @@ class userland::smuxi_client (
     $enginePass,
     $engineName,
 ) {
-    package { 'smuxi' :
-        ensure => installed,
-    }
+    ensure_packages('smuxi')
 
     file { "/home/$userland::installer::username/.config/smuxi" :
         ensure => directory,

@@ -4,9 +4,7 @@ class userland::laptop (
 ) {
 
     if $wicd {
-        package { 'wicd' :
-            ensure => installed,
-        }
+        ensure_packages(['wicd'])
 
         service {'wicd.service' :
             ensure  => running,

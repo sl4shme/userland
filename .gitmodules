@@ -4,3 +4,6 @@
 [submodule "modules/userland/files/.vim/bundle/Vundle.vim"]
 	path = modules/userland/files/.vim/bundle/Vundle.vim
 	url = https://github.com/gmarik/Vundle.vim.git
+[submodule "modules/userland/files/packer"]
+	path = modules/userland/files/packer
+	url = https://github.com/keenerd/packer.git

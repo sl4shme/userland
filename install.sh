@@ -99,7 +99,7 @@ while [ "$confirm" != "y" ] && [ "$confirm" != "Y" ]; do
     fi
 done
 
-puppet apply /etc/puppet/modules/userland/manifests/installer.pp
+puppet apply /etc/puppet/modules/userland/manifests/installer.pp --noop
 
 #Preconfigure dans le puppet
 

@@ -2,9 +2,7 @@ class userland::kvm (
     $interfaceToBridge = false,
 ) {
     if interfaceToBridge {
-        package { ["bridge-utils","netctl"] :
-            ensure => installed,
-        }
+        ensure_packages(["bridge-utils","netctl"])
 
         file { '/etc/netctl/bridge' :
             ensure  => file,
@@ -29,9 +27,7 @@ class userland::kvm (
         }
     }
 
-    package { ["qemu","virt-manager"] :
-        ensure => installed,
-    }
+    ensure_packages(["qemu","virt-manager"])
 
     exec { 'modprobe_virtio':
         command => '/sbin/modprobe virtio',

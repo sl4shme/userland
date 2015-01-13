@@ -4,20 +4,20 @@ define userland::aur(
     case $ensure {
         'present': {
             exec { "aur::install::${name}":
-                command   => "/usr/bin/su yaourt -lc 'export http_proxy=$userland::installer::httpProxy ; export https_proxy=$userland::installer::httpsProxy ; yaourt -S --noconfirm ${name}'",
-                unless    => "/usr/bin/su yaourt -lc 'export http_proxy=$userland::installer::httpProxy ; export https_proxy=$userland::installer::httpsProxy ; yaourt -Qk ${name}'",
+                command   => "/usr/bin/su aur -lc 'export http_proxy=$userland::installer::httpProxy ; export https_proxy=$userland::installer::httpsProxy ; packer -S --noconfirm ${name}'",
+                unless    => "pacman -Qk ${name}'",
                 logoutput => 'on_failure',
             }
         }
         'absent': {
             exec { "aur::remove::${name}":
-                command   => "/usr/bin/su yaourt -lc 'export http_proxy=$userland::installer::httpProxy ; export https_proxy=$userland::installer::httpsProxy ; yaourt -Rs ${name}'",
-                onlyif    => "/usr/bin/su yaourt -lc 'export http_proxy=$userland::installer::httpProxy ; export https_proxy=$userland::installer::httpsProxy ; yaourt -Qi ${name}'",
+                command   => "pacman -Rs ${name}'",
+                onlyif    => "pacman -Qi ${name}'",
                 logoutput => 'on_failure',
             }
         }
         default: {
-            fail("Pacman::Aur[${name}] ensure parameter must be either 'present' or 'absent'")
+            fail("Aur[${name}] ensure parameter must be either 'present' or 'absent'")
         }
     }
 }

@@ -1,9 +1,7 @@
 class userland::printer (
     $hpConfig = false,
 ) {
-    package { ["cups","libcups","hplip"] :
-        ensure => installed,
-    }
+    ensure_packages(["cups","libcups","hplip"])
     
     service { 'org.cups.cupsd.service' :
         ensure  => running,

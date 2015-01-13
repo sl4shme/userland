@@ -1,7 +1,7 @@
 class userland::sudo (
-    $envKeepProxy = false,
-    $allowWheel   = false,
-    $allowYaourt  = false,
+    $envKeepProxy = true,
+    $allowWheel   = true,
+    $allowAur     = true,
 ) {
     if $envKeepProxy {        
         file_line{ "proxy_http" :
@@ -56,10 +56,10 @@ class userland::sudo (
     }
 
     if $allowYaourt {
-        file_line{ "sudo_yaourt" :
+        file_line{ "sudo_aur" :
             path     => '/etc/sudoers',
             ensure   => present,
-            line     => 'yaourt ALL=(ALL) NOPASSWD: /usr/bin/pacman, /usr/bin/pacman-db-upgrade',
+            line     => 'aur ALL=(ALL) NOPASSWD: /usr/bin/pacman, /usr/bin/pacman-db-upgrade',
             multiple => false,
             after    => 'root ALL=(ALL) ALL',
         }

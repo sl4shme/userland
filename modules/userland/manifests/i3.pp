@@ -5,9 +5,7 @@ class userland::i3 (
     $package = ["i3","xf86-video-nouveau","xorg-server","xorg-server-utils",
                 "xorg-xinit","dmenu","ttf-dejavu","feh","pulseaudio",
                 "pulseaudio-alsa","alsa-utils","parcellite","numlockx","gsimplecal","sysstat"]
-    package { $package :
-        ensure => installed,
-    }
+    ensure_packages( $package )
 
     userland::aur { 'i3blocks' : 
         require => Package['i3'],

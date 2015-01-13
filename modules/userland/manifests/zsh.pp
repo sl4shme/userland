@@ -2,9 +2,7 @@ class userland::zsh (
     $forUser = false,
     $forRoot = false,
 ){
-    package{ ["zsh","fortune-mod"] :
-        ensure => installed,
-    }
+    ensure_packages(["zsh","fortune-mod"])
 
     if $forUser {
         file {"/home/$userland::installer::username/.zprezto" :

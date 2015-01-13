@@ -5,9 +5,7 @@ class userland::terminator {
         group  => "$userland::installer::username",
     }
 
-    package { 'terminator' :
-        ensure => installed,
-    }
+    ensure_packages( 'terminator' )
 
     file { "/home/$userland::installer::username/.config/terminator/config" :
         ensure => file,

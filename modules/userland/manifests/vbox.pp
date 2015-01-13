@@ -1,7 +1,5 @@
 class userland::vbox {
-    package { ["virtualbox","virtualbox-host-modules","virtualbox","qt4"] :
-        ensure => installed,
-    }
+    ensure_packages(["virtualbox","virtualbox-host-modules","virtualbox","qt4"])
 
     exec { 'modprobe':                               
         command => '/sbin/modprobe vboxdrv',       

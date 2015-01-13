@@ -2,9 +2,7 @@ class userland::vim(
     $forUser = false,
     $forRoot = false,
 ) {
-    package {"vim":
-        ensure => installed,
-    }
+    ensure_packages(['vim'])
 
     if $forUser {
         file { "/home/$userland::installer::username/.vim" :
