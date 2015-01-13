@@ -96,18 +96,28 @@ while [ "$confirm" != "y" ] && [ "$confirm" != "Y" ]; do
     else
         echo "Generated a new installer file from example, you need to edit it."
         cp /etc/puppet/modules/userland/manifests/installer_example.pp /etc/puppet/modules/userland/manifests/installer.pp
+        sed -i "s/$httpProxy=\"\"/$httpProxy=\"$proxy\"/" /etc/puppet/modules/userland/manifests/installer.pp
+        sed -i "s/$httpsProxy=\"\"/$httpsProxy=\"$sproxy\"/" /etc/puppet/modules/userland/manifests/installer.pp
     fi
 done
 
-puppet apply /etc/puppet/modules/userland/manifests/installer.pp --noop
+retry=0
+while [ "$puppetCode" -ne 0 ]; do
+    puppet apply /etc/puppet/modules/userland/manifests/installer.pp 2>&1 ; puppetCode=$? | tee -a /var/log/puppet/installer
+    retry=$((retry + 1))
+    if [ "$retry" -eq 5 ]; then
+        echo "Puppet failed five times in a row, You should look a the log in /var/log/puppet/installer.log"
+        break
+    fi
+done
 
-#Preconfigure dans le puppet
+if [[ $(cat /etc/shadow | grep "$username" | cut -d ':' -f 2) = "!" ]]; then
+    echo "You should set a password for user $username"
+    passwd $username
+fi
 
-#prevenir pour USER password et yaourt password
-
-#verif perms before packaging
-
-#set cron ? / uninstall / rm ressources
-
-#logs tee
-
+echo 'Do you want to remove Puppet ? [y/N]'
+read respRm
+if [ "$respRm" = "y" ] || [ "$respRm" = "Y" ]; then
+    pacman -Rs puppet --noconfirm
+fi

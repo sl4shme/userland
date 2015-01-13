@@ -18,7 +18,7 @@ stage { 'post':
 ##
 #Generic parameters
 ##
-$username = "" #Name of the non-root user
+$username = "" #Name of the non-root user (Principally used to calculate home path)
 
 
 ##
@@ -80,8 +80,8 @@ $httpsProxy=""
 #Wont configure password
 ##
 
-#class {'userland::config_user' :
-#    username         => $username,
+#class {'userland::config_user' : # If not set, a lot of things won't work
+#    username         => $username, #If not set no user managment
 #    manageUserSshKey => false,
 #    manageRootSshKey => false,
 #}
@@ -293,6 +293,14 @@ $httpsProxy=""
 #    stage => 'post',
 #}
 
+
+##
+#Run this manifest daily at 1am
+##
+
+#class {'userland::cron' : 
+#    stage => 'post',
+#}
 
 }
 include userland::installer
