@@ -1,41 +1,40 @@
 define userland::other_repo (
-    $name,
-    $server,
+    $repoName,
+    $repoServer,
     $sigLevel = "Required DatabaseOptional",
 ) {
-
-    file_line{ "$name.comment" :
+    file_line{ "$repoName.comment" :
         path     => '/etc/pacman.d/otherRepo',
         ensure   => present,
-        line     => "#Repo ${name}",
+        line     => "#Repo ${repoName}",
         multiple => false,
         require  => File['/etc/pacman.d/otherRepo'],
     }
 
-    file_line{ "$name" :
+    file_line{ "$repoName" :
         path     => '/etc/pacman.d/otherRepo',
         ensure   => present,
-        line     => "[${name}]",
+        line     => "[${repoName}]",
         multiple => false,
-        after    => "#Repo ${name}",
-        require  => File_line["$name.comment"],
+        after    => "#Repo ${repoName}",
+        require  => File_line["$repoName.comment"],
     }
 
-    file_line{ "$name.server" :
+    file_line{ "$repoName.server" :
         path     => '/etc/pacman.d/otherRepo',
         ensure   => present,
-        line     => "Server = ${server}",
+        line     => "Server = ${repoServer}",
         multiple => false,
-        after    => "\[${name}]",
-        require  => File_line["$name"],
+        after    => "\\\\[${repoName}]",
+        require  => File_line["$repoName"],
     }
 
-    file_line{ "$name.sigLevel" :
+    file_line{ "$repoName.sigLevel" :
         path     => '/etc/pacman.d/otherRepo',
         ensure   => present,
         line     => "SigLevel = ${sigLevel}",
         multiple => false,
-        after    => "Server = ${server}",
-        require  => File_line["$name.server"],
+        after    => "Server = ${repoServer}",
+        require  => File_line["$repoName.server"],
     }
 }
