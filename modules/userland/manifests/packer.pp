@@ -2,8 +2,18 @@ class userland::aur {
     group { 'aur' :
         ensure => present,
     }
+    
+    exec { 'pacman-refresh-packer':
+        command     => "/usr/bin/pacman-db-upgrade ; /sbin/pacman -Sy",
+        environment => ["http_proxy=$userland::installer::httpProxy","https_proxy=$userland::installer::httpsProxy"],
+        creates     => '/usr/bin/packer',
+        before      => File['/usr/bin/packer'],
+    }
 
-    ensure_packages(["base-devel","fakeroot","jshon","expac","git","curl"])
+    package { ["base-devel","fakeroot","jshon","expac","git","curl"] :
+        ensure  => installed,
+        require => Exec['pacman-refresh-packer'],
+    }
 
     user { 'aur' :
         ensure  => present,

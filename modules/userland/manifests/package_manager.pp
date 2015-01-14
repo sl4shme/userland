@@ -19,7 +19,9 @@ class userland::package_manager(
     }
 
     if $installPacker{
-       class {"userland::packer" : }
+        class {"userland::packer" : 
+            require => File['/etc/pacman.conf'],
+       }
     }
 }
 
