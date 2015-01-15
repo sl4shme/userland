@@ -61,7 +61,7 @@ if [ "$puppet" != "0" ]; then
     pacman -S puppet --noconfirm
 fi
 
-if [ -a "/usr/bin/sudo" ]; then
+if [ ! -a "/usr/bin/sudo" ]; then
     echo "Installing sudo"
     pacman-db-upgrade
     pacman -Sy
