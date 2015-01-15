@@ -115,10 +115,11 @@ touch /var/log/puppet/installer.log
 puppetCode=1
 retry=0
 while [ "$puppetCode" -ne 0 ]; do
-    puppet apply /etc/puppet/modules/userland/manifests/installer.pp 2>&1 ; puppetCode=$? | tee -a /var/log/puppet/installer.log
+    puppet apply /etc/puppet/modules/userland/manifests/installer.pp 2>&1 | tee -a /var/log/puppet/installer.log
+    puppetCode=$PIPESTATUS
     retry=$((retry + 1))
-    if [ "$retry" -eq 5 ]; then
-        echo "Puppet failed five times in a row, You should look a the log in /var/log/puppet/installer.log"
+    if [ "$retry" -eq 3 ]; then
+        echo "Puppet failed three times in a row, You should look a the log in /var/log/puppet/installer.log"
         break
     fi
 done
