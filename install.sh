@@ -61,7 +61,7 @@ if [ "$puppet" != "0" ]; then
     pacman -S puppet --noconfirm
 fi
 
-if [ ! -a "/usr/bin/sudo" ]; then
+if [ ! -f "/usr/bin/sudo" ]; then
     echo "Installing sudo"
     pacman-db-upgrade
     pacman -Sy
@@ -119,7 +119,7 @@ while [ "$puppetCode" -ne 0 ]; do
     puppetCode=$PIPESTATUS
     retry=$((retry + 1))
     if [ "$retry" -eq 3 ]; then
-        echo "Puppet failed three times in a row, You should look a the log in /var/log/puppet/installer.log"
+        echo "Puppet finished with error or warning three times in a row, You should look a the log in /var/log/puppet/installer.log"
         break
     fi
 done
