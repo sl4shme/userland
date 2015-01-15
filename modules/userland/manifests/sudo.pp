@@ -55,11 +55,11 @@ class userland::sudo (
         }
     }
 
-    if $allowYaourt {
+    if $allowAur {
         file_line{ "sudo_aur" :
             path     => '/etc/sudoers',
             ensure   => present,
-            line     => 'aur ALL=(ALL) NOPASSWD: /usr/bin/pacman, /usr/bin/pacman-db-upgrade',
+            line     => 'aur ALL=(ALL) NOPASSWD:SETENV: /usr/bin/pacman, /usr/bin/pacman-db-upgrade',
             multiple => false,
             after    => 'root ALL=(ALL) ALL',
         }

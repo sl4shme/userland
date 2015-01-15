@@ -1,4 +1,5 @@
 class userland::packages (
+    $base         = true,
     $dev          = false,
     $network      = false,
     $firefox      = false,

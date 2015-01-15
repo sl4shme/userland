@@ -10,7 +10,7 @@ class userland::firefox (
 
     if $gtalk {
         userland::aur { 'google-talkplugin' : 
-            require => Package['Firefox'],
+            require => Package['firefox'],
         }
     }
 }

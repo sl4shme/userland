@@ -37,6 +37,7 @@ command -v git >/dev/null 2>&1
 git=$?
 if [ "$git" != "0" ]; then
     echo "Installing git"
+    pacman-db-upgrade
     pacman -Sy
     pacman -S git --noconfirm
 fi
@@ -55,8 +56,16 @@ command -v puppet >/dev/null 2>&1
 puppet=$?
 if [ "$puppet" != "0" ]; then
     echo "Installing puppet"
+    pacman-db-upgrade
     pacman -Sy
     pacman -S puppet --noconfirm
+fi
+
+if [ -a "/usr/bin/sudo" ]; then
+    echo "Installing sudo"
+    pacman-db-upgrade
+    pacman -Sy
+    pacman -S sudo --noconfirm
 fi
 
 
@@ -101,9 +110,12 @@ while [ "$confirm" != "y" ] && [ "$confirm" != "Y" ]; do
     fi
 done
 
+mkdir /var/log/puppet 2> /dev/null
+touch /var/log/puppet/installer.log
+puppetCode=1
 retry=0
 while [ "$puppetCode" -ne 0 ]; do
-    puppet apply /etc/puppet/modules/userland/manifests/installer.pp 2>&1 ; puppetCode=$? | tee -a /var/log/puppet/installer
+    puppet apply /etc/puppet/modules/userland/manifests/installer.pp 2>&1 ; puppetCode=$? | tee -a /var/log/puppet/installer.log
     retry=$((retry + 1))
     if [ "$retry" -eq 5 ]; then
         echo "Puppet failed five times in a row, You should look a the log in /var/log/puppet/installer.log"
