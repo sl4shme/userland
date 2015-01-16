@@ -124,6 +124,7 @@ while [ "$puppetCode" -gt "2" ]; do
     fi
 done
 
+username=`cat /etc/puppet/modules/userland/manifests/installer.pp | grep '$username =' |cut -d '"' -f 2`
 if [[ $(cat /etc/shadow | grep "$username" | cut -d ':' -f 2) = "!" ]]; then
     echo "You should set a password for user $username"
     passwd $username
