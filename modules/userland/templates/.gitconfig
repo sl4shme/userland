@@ -1,0 +1,4 @@
+[user]
+        email =  <%= scope.lookupvar('userland::git::username') %>
+        name = <%= scope.lookupvar('userland::git::email') %>
+

@@ -274,6 +274,7 @@ $httpsProxy=""
 
 ##
 #Configure Git settings
+#Will overwrite your .gitconfig
 ##
 
 #class {'userland::git' :
