@@ -61,20 +61,18 @@ class userland::vim(
             before  => Exec['rootVimInstall'],
             require => File["/root/.vim"],
         }
-       
-        if $userland::installer::http_proxy != '' { 
-            exec {'rootVimInstall' :
-                command     => "/usr/bin/vim -u /root/.vim/.vimrcInsVundle +PluginInstall +qall",
-                require     => File["/root/.vim"],
-                onlyif      => "/usr/bin/ls /root/.vim/bundle | wc -l | grep 1",
-                environment => ["http_proxy=$userland::installer::httpProxy","https_proxy=$userland::installer::httpsProxy","HOME=/root"],
-            }
+
+        if $userland::installer::http_proxy != '' {
+            $env=["http_proxy=$userland::installer::httpProxy","https_proxy=$userland::installer::httpsProxy","HOME=/root"]
         } else {
-            exec {'rootVimInstall' :
-                command     => "/usr/bin/vim -u /root/.vim/.vimrcInsVundle +PluginInstall +qall",
-                require     => File["/root/.vim"],
-                onlyif      => "/usr/bin/ls /root/.vim/bundle | wc -l | grep 1",
-            }
+            $env=["HOME=/root"]
+        }
+
+        exec {'rootVimInstall' :
+            command     => "/usr/bin/vim -u /root/.vim/.vimrcInsVundle +PluginInstall +qall",
+            require     => File["/root/.vim"],
+            onlyif      => "/usr/bin/ls /root/.vim/bundle | wc -l | grep 1",
+            environment => $env,
         }
     }
 }
