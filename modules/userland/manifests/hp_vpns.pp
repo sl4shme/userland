@@ -10,12 +10,20 @@ class userland::hp_vpns (
             mode   => 774,
             source => "puppet:///modules/userland/depinstall.sh",
         }
-
-        exec { 'install_juniper_deps':
-            command     => "/tmp/depinstall.sh",
-            unless      => '/usr/bin/ls /usr/lib/python2.7/site-packages/ | grep -c elementtidy',
-            environment => ["http_proxy=$userland::installer::httpProxy","https_proxy=$userland::installer::httpsProxy"],
-            require     => File['/tmp/depinstall.sh'],
+        
+        if $userland::installer::http_proxy != '' { 
+            exec { 'install_juniper_deps':
+                command     => "/tmp/depinstall.sh",
+                unless      => '/usr/bin/ls /usr/lib/python2.7/site-packages/ | grep -c elementtidy',
+                environment => ["http_proxy=$userland::installer::httpProxy","https_proxy=$userland::installer::httpsProxy"],
+                require     => File['/tmp/depinstall.sh'],
+            }
+        } else {
+            exec { 'install_juniper_deps':
+                command     => "/tmp/depinstall.sh",
+                unless      => '/usr/bin/ls /usr/lib/python2.7/site-packages/ | grep -c elementtidy',
+                require     => File['/tmp/depinstall.sh'],
+            }
         }
 
         file { "/home/$userland::installer::username/hpcs_vpn/" :

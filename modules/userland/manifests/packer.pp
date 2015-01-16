@@ -2,12 +2,20 @@ class userland::packer {
     group { 'aur' :
         ensure => present,
     }
-    
-    exec { 'pacman-refresh-packer':
-        command     => "/usr/bin/pacman-db-upgrade ; /sbin/pacman -Sy",
-        environment => ["http_proxy=$userland::installer::httpProxy","https_proxy=$userland::installer::httpsProxy"],
-        creates     => '/usr/bin/packer',
-        before      => [File['/usr/bin/packer'],Package[["base-devel","fakeroot","jshon","expac","git","curl"]]],
+
+    if $userland::installer::http_proxy != '' { 
+        exec { 'pacman-refresh-packer':
+            command     => "/usr/bin/pacman-db-upgrade ; /sbin/pacman -Sy",
+            environment => ["http_proxy=$userland::installer::httpProxy","https_proxy=$userland::installer::httpsProxy"],
+            creates     => '/usr/bin/packer',
+            before      => [File['/usr/bin/packer'],Package[["base-devel","fakeroot","jshon","expac","git","curl"]]],
+        }
+    } else {
+        exec { 'pacman-refresh-packer':
+            command     => "/usr/bin/pacman-db-upgrade ; /sbin/pacman -Sy",
+            creates     => '/usr/bin/packer',
+            before      => [File['/usr/bin/packer'],Package[["base-devel","fakeroot","jshon","expac","git","curl"]]],
+        }
     }
 
     ensure_packages(["base-devel","fakeroot","jshon","expac","git","curl"])

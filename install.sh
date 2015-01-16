@@ -112,10 +112,10 @@ done
 
 mkdir /var/log/puppet 2> /dev/null
 touch /var/log/puppet/installer.log
-puppetCode=1
-retry=0
-while [ "$puppetCode" -ne 0 ]; do
-    puppet apply /etc/puppet/modules/userland/manifests/installer.pp 2>&1 | tee -a /var/log/puppet/installer.log
+puppetCode="6"
+retry="0"
+while [ "$puppetCode" -gt "2" ]; do
+    puppet apply /etc/puppet/modules/userland/manifests/installer.pp --detailed-exitcodes 2>&1 | tee -a /var/log/puppet/installer.log
     puppetCode=$PIPESTATUS
     retry=$((retry + 1))
     if [ "$retry" -eq 3 ]; then
