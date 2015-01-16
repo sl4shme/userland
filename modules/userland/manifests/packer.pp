@@ -1,4 +1,7 @@
 class userland::packer {
+
+    $basedevel=["autoconf","automake","binutils","bison","fakeroot","file","findutils","flex","gawk","gcc","gettext","grep","groff","gzip","libtool","m4","make","pacman","patch","pkg-config","sed","sudo","texinfo","util-linux","which","fakeroot","jshon","expac","git","curl"]
+
     group { 'aur' :
         ensure => present,
     }
@@ -8,17 +11,17 @@ class userland::packer {
             command     => "/usr/bin/pacman-db-upgrade ; /sbin/pacman -Sy",
             environment => ["http_proxy=$userland::installer::httpProxy","https_proxy=$userland::installer::httpsProxy"],
             creates     => '/usr/bin/packer',
-            before      => [File['/usr/bin/packer'],Package[["base-devel","fakeroot","jshon","expac","git","curl"]]],
+            before      => [File['/usr/bin/packer'],Package[$basedevel]],
         }
     } else {
         exec { 'pacman-refresh-packer':
             command     => "/usr/bin/pacman-db-upgrade ; /sbin/pacman -Sy",
             creates     => '/usr/bin/packer',
-            before      => [File['/usr/bin/packer'],Package[["base-devel","fakeroot","jshon","expac","git","curl"]]],
+            before      => [File['/usr/bin/packer'],Package[$basedevel]],
         }
     }
 
-    ensure_packages(["base-devel","fakeroot","jshon","expac","git","curl"])
+    ensure_packages($basedevel)
 
     user { 'aur' :
         ensure  => present,
