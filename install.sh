@@ -69,14 +69,40 @@ if [ ! -f "/usr/bin/sudo" ]; then
 fi
 
 
-while [ ! -d "/etc/puppet/modules/userland/files/enc/" ]; do
-    #Use this commands to encrypt :
-    #cd /etc/puppet/modules/userland/files/
-    #tar -cvf /etc/puppet/modules/userland/files/enc.tar.gz enc/
-    #openssl aes-256-cbc -a -salt -in /etc/puppet/modules/userland/files/enc.tar.gz -out /etc/puppet/modules/userland/files/enc.tar.gz.enc
-    echo "Uncrypting your crypted folder"
-    openssl aes-256-cbc -d -a -in /etc/puppet/modules/userland/files/enc.tar.gz.enc -out /etc/puppet/modules/userland/files/enc.tar.gz
-    tar -xvf /etc/puppet/modules/userland/files/enc.tar.gz -C /etc/puppet/modules/userland/files/
+#Use this commands to encrypt :
+#cd /etc/puppet/modules/userland/files/
+#tar -cvf /etc/puppet/modules/userland/files/enc.tar.gz enc/
+#openssl aes-256-cbc -a -salt -in /etc/puppet/modules/userland/files/enc.tar.gz -out /etc/puppet/modules/userland/files/enc.tar.gz.enc
+
+while [ -f "/etc/puppet/modules/userland/files/hp.tar.gz.enc" ] && [ ! -f "/etc/puppet/modules/userland/files/hp.tar.gz" ]; do
+    echo "Found an encrypted VPN archive (needed for Juniper VPN). Decrypt it ? [Y/n]"
+    read resp
+    if [ "$resp" = "y" ] || [ "$resp" = "Y" ] || [ "$resp" = "" ]; then
+        openssl aes-256-cbc -d -a -in /etc/puppet/modules/userland/files/hp.tar.gz.enc -out /etc/puppet/modules/userland/files/hp.tar.gz ; hpcode=$?
+        if [ "$hpcode" -eq "0"  ] ; then
+            tar -xf /etc/puppet/modules/userland/files/hp.tar.gz -C /etc/puppet/modules/userland/files/
+        else
+            rm -f /etc/puppet/modules/userland/files/hp.tar.gz
+        fi
+    else
+        break
+    fi
+done
+
+while [ -f "/etc/puppet/modules/userland/files/perso.tar.gz.enc" ] && [ ! -f "/etc/puppet/modules/userland/files/perso.tar.gz" ]; do
+    echo "Found a perso encrypted archive (needed ssh key and OpenVpn). Decrypt it ? [Y/n]"
+    read resp
+    if [ "$resp" = "y" ] || [ "$resp" = "Y" ] || [ "$resp" = "" ]; then
+        openssl aes-256-cbc -d -a -in /etc/puppet/modules/userland/files/perso.tar.gz.enc -out /etc/puppet/modules/userland/files/perso.tar.gz ; persocode=$?
+        if [ "$persocode" -eq "0" ] ; then
+            tar -xf /etc/puppet/modules/userland/files/perso.tar.gz -C /etc/puppet/modules/userland/files/
+        else
+            rm -f /etc/puppet/modules/userland/files/hp.tar.gz
+        fi
+    else
+        echo "You can put you own id_rsa, id_rsa.pub and OpenVpn folder in /etc/puppet/modules/userland/files/enc/"
+        break
+    fi
 done
 
 

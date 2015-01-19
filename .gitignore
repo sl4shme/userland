@@ -1,3 +1,4 @@
 installer.pp
 /modules/userland/files/enc/
-enc.tar.gz
+hp.tar.gz
+perso.tar.gz
