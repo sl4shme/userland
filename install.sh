@@ -105,8 +105,8 @@ while [ "$confirm" != "y" ] && [ "$confirm" != "Y" ]; do
     else
         echo "Generated a new installer file from example, you need to edit it."
         cp /etc/puppet/modules/userland/manifests/installer_example.pp /etc/puppet/modules/userland/manifests/installer.pp
-        sed -i "s/$httpProxy=\"\"/$httpProxy=\"$proxy\"/" /etc/puppet/modules/userland/manifests/installer.pp
-        sed -i "s/$httpsProxy=\"\"/$httpsProxy=\"$sproxy\"/" /etc/puppet/modules/userland/manifests/installer.pp
+        sed -i "s#\$httpProxy=\"\"#\$httpProxy=\"$proxy\"#" /etc/puppet/modules/userland/manifests/installer.pp
+        sed -i "s#\$httpsProxy=\"\"#\$httpsProxy=\"$sproxy\"#" /etc/puppet/modules/userland/manifests/installer.pp
     fi
 done
 
