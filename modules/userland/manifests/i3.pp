@@ -4,7 +4,7 @@ class userland::i3 (
 ) {
     $package = ["i3","xf86-video-nouveau","xorg-server","xorg-server-utils",
                 "xorg-xinit","dmenu","ttf-dejavu","feh","pulseaudio",
-                "pulseaudio-alsa","alsa-utils","parcellite","numlockx","gsimplecal","sysstat"]
+                "pulseaudio-alsa","alsa-utils","parcellite","numlockx","gsimplecal","sysstat","imagemagick"]
     ensure_packages( $package )
 
     userland::aur { 'i3blocks' : 
@@ -49,8 +49,13 @@ class userland::i3 (
 
     file { "/home/$userland::installer::username/.i3/" :
         ensure  => directory,
-        recurse => remote,
-        source  => "puppet:///modules/userland/.i3",
+        owner   => "$userland::installer::username",
+        group   => "$userland::installer::username",
+    }
+    
+    file { "/home/$userland::installer::username/.i3/config" :
+        ensure  => file,
+        source  => "puppet:///modules/userland/i3config",
         owner   => "$userland::installer::username",
         group   => "$userland::installer::username",
     }
@@ -70,4 +75,27 @@ class userland::i3 (
         mode    => 755,
         require => Package['dmenu'], 
     }
+
+    exec {'resize_lockscreen':
+        command => '/usr/bin/convert /etc/puppet/modules/userland/files/lockscreen.png -resize `xrandr -q | awk -F\'current\' -F\',\' \'NR==1 {gsub("( |current)","");print $2}\'`\!  /etc/puppet/modules/userland/files/lockscreen_rs.png',
+        creates => '/etc/puppet/modules/userland/files/lockscreen_rs.png',
+        require => [Package[$package],File["/home/$userland::installer::username/.i3/"]]
+    }
+
+    file { "/home/$userland::installer::username/.i3/background.png" :
+        ensure => file, 
+        source => "puppet:///modules/userland/background.png",
+        owner  => "$userland::installer::username",
+        group  => "$userland::installer::username",
+        require => File["/home/$userland::installer::username/.i3/"],
+    }
+    
+    file { "/home/$userland::installer::username/.i3/lockscreen.png" :
+        ensure => file, 
+        source => "puppet:///modules/userland/lockscreen_rs.png",
+        owner  => "$userland::installer::username",
+        group  => "$userland::installer::username",
+        require => Exec['resize_lockscreen'],
+    }
+
 }

@@ -12,7 +12,7 @@ class userland::packages (
         ensure_packages($list)
     }
     if $dev {
-        $list1 = ["python","python-pip","flake8"]
+        $list1 = ["python","python-pip","flake8","ipython"]
         ensure_packages($list1)
     }
     if $network {
@@ -24,7 +24,7 @@ class userland::packages (
         ensure_packages($list3)
     }
      if $graphicalApp {
-        $list4 = ["xarchiver","pcmanfm","xorg-xcalc","gedit","imagemagick","gvfs","gvfs-mtp","gvfs-afc"]
+        $list4 = ["xarchiver","pcmanfm","gedit","gvfs","gvfs-mtp","gvfs-afc"]
         ensure_packages($list4)
     }
    if $rdp {
