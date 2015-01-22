@@ -1,6 +1,6 @@
-"========================================================== 
-" Vundle                                                                     
-" ========================================================== 
+"==========================================================
+" Vundle
+" ==========================================================
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -12,9 +12,13 @@ Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ervandew/supertab'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'sjl/gundo.vim'
+Plugin 'raimondi/delimitMate'
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
+
 " ==========================================================
 " Shortcuts
 " ==========================================================
@@ -25,10 +29,10 @@ map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimr
 cmap w!! w !sudo tee % >/dev/null
 
 "remove all trailing whitespaces
-:nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+:nnoremap <silent> <F9> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 " Toggle line numbering
-:nmap <F12> :set invnumber<CR> 
+:nmap <F12> :set invnumber<CR>
 " ==========================================================
 " Basic Settings
 " ==========================================================
@@ -132,7 +136,7 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Mouse
 set mouse=a
-map <C-n> :NERDTreeToggle<CR>
+map <F5> :NERDTreeToggle<CR>
 " Close if nothing
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeDirArrows=0
@@ -163,9 +167,11 @@ let g:airline_symbols.whitespace = 'Ξ'
 "======================="
 " Syntastic"
 "======================="
+nnoremap <F9> :SyntasticCheck<CR>
+nnoremap <F10> :SyntasticReset<CR>
+
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list=1
-let g:syntastic_disabled_filetypes=['html']
-let g:syntastic_enable_signs=1
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
 
@@ -175,4 +181,17 @@ let g:syntastic_enable_signs=1
 au FileType python set omnifunc=pythoncomplete#Complete
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
-let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabClosePreviewOnPopupClose = 1
+let g:SuperTabLongestEnhanced = 1
+let g:SuperTabCrMapping = 1
+set completeopt=menuone,longest,preview
+
+"======================="
+" NerdCommenter"
+"======================="
+let g:NERDSpaceDelims=1
+
+"======================="
+" Gundo"
+"======================="
+nnoremap <F6> :GundoToggle<CR>
