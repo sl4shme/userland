@@ -2,7 +2,10 @@ class userland::config_user(
     $username,
     $manageUserSshKey = false,
     $manageRootSshKey = false,
-    $manageSudoers    = false,
+    $manageUserPgp    = false,
+    $manageRootPgp    = false,
+    $userSshAuthKey   = false,
+    $rootSshAuthKey   = false,
 ) {
     if $username {
         user { "$username":
@@ -25,12 +28,12 @@ class userland::config_user(
             require => User["$username"],
         }
 
-        file { "/home/$username/.local/" :  
-            ensure  => directory,        
-            owner   => "$username",      
-            group   => "$username",      
+        file { "/home/$username/.local/" :
+            ensure  => directory,
+            owner   => "$username",
+            group   => "$username",
             require => User["$username"],
-        }                                
+        }
 
         file { "/home/$username/.local/bin/" :
             ensure  => directory,
@@ -53,7 +56,7 @@ class userland::config_user(
                 group   => $username,
                 mode    => 600,
                 source  => "puppet:///modules/userland/enc/id_rsa",
-                require => User["$username"],
+                require => [User["$username"],File["/home/$username/.ssh"]]
             }
            file {"/home/$username/.ssh/id_rsa.pub" :
                 ensure  => file,
@@ -61,11 +64,31 @@ class userland::config_user(
                 group   => $username,
                 mode    => 644,
                 source  => "puppet:///modules/userland/enc/id_rsa.pub",
+                require => [User["$username"],File["/home/$username/.ssh"]]
+            }
+        }
+
+        if $manageUserPgp {
+            file {"/home/$username/.gnupg" :
+                ensure  => directory,
+                owner   => $username,
+                group   => $username,
+                mode    => 700,
                 require => User["$username"],
+                source  => "puppet:///modules/userland/enc/.gnupg/",
+                recurse => 'remote',
+            }
+        }
+
+        if $userSshAuthKey {
+            ssh_authorized_key{ "slashme key" :
+                ensure  => present,
+                key     => file("/etc/puppet/modules/userland/files/enc/id_rsa.pub"),
+                user    => "$username",
+                type    => "ssh-rsa",
             }
         }
     }
-
     if $manageRootSshKey {
         file {"/root/.ssh" :
             ensure  => directory,
@@ -86,6 +109,26 @@ class userland::config_user(
             group   => "root",
             mode    => 644,
             source  => "puppet:///modules/userland/enc/id_rsa.pub",
+        }
+    }
+
+    if $manageRootPgp {
+        file {"/root/.gnupg" :
+            ensure  => directory,
+            owner   => 'root',
+            group   => 'root',
+            mode    => 700,
+            source  => "puppet:///modules/userland/enc/.gnupg/",
+            recurse => 'remote',
+        }
+    }
+
+    if $rootSshAuthKey {
+        ssh_authorized_key{ "slashme key" :
+            ensure  => present,
+            key     => file("/etc/puppet/modules/userland/files/enc/id_rsa.pub"),
+            user    => "root",
+            type    => "ssh-rsa",
         }
     }
 }

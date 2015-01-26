@@ -58,9 +58,9 @@ $httpsProxy=""
 #class {'userland::package_manager' :
 #    installPacker   => false, #Require sudo allowAur and envKeepProxy
 #    iLoveCandy      => false,
-#    enableCore      => true, 
-#    enableExtra     => true, 
-#    enableCommunity => true, 
+#    enableCore      => true,
+#    enableExtra     => true,
+#    enableCommunity => true,
 #    enableMultilib  => false,
 #    stage           => 'pacman'
 #}
@@ -70,7 +70,7 @@ $httpsProxy=""
 #Refresh Pacman database on every run
 ##
 
-#class {'userland::pacman_refresh': 
+#class {'userland::pacman_refresh':
 #    stage => 'pacman_refresh',
 #}
 
@@ -82,8 +82,12 @@ $httpsProxy=""
 
 #class {'userland::config_user' : # If not set, a lot of things won't work
 #    username         => $username, #If not set no user managment
-#    manageUserSshKey => false,
-#    manageRootSshKey => false,
+#    manageUserSshKey => false,  #require files in enc/.ssh
+#    manageRootSshKey => false,  #require files in enc/.ssh
+#    manageUserPgp    => false,  #require files in enc/.gnupg
+#    manageRootPgp    => false,  #require files in enc/.gnupg
+#    userSshAuthKey   => false,  #require files in enc/.ssh
+#    rootSshAuthKey   => false,  #require files in enc/.ssh
 #}
 
 
@@ -157,7 +161,7 @@ $httpsProxy=""
 #Require userland::package_manager
 ##
 
-#class {'userland::hipchat_repo' : 
+#class {'userland::hipchat_repo' :
 #    stage => 'pacman',
 #}
 #class {'userland::hipchat' :
@@ -299,7 +303,7 @@ $httpsProxy=""
 #Run this manifest daily at 1am
 ##
 
-#class {'userland::cron' : 
+#class {'userland::cron' :
 #    stage => 'post',
 #}
 
