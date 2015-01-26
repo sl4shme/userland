@@ -73,18 +73,28 @@ fi
 #tar -cvf /etc/puppet/modules/userland/files/enc.tar.gz enc/
 #openssl aes-256-cbc -a -salt -in /etc/puppet/modules/userland/files/enc.tar.gz -out /etc/puppet/modules/userland/files/enc.tar.gz.enc
 
-while [ -f "/etc/puppet/modules/userland/files/perso.tar.gz.enc" ] && [ ! -f "/etc/puppet/modules/userland/files/perso.tar.gz" ]; do
-    echo "Found a perso encrypted archive (needed ssh key and OpenVpn). Decrypt it ? [Y/n]"
+echo "Do you want to clone the personal repo ? [Y/n]"
+read resp
+if [ "$resp" = "y" ] || [ "$resp" = "Y" ] || [ "$resp" = "" ]; then
+    git clone git@git.plop.in:/home/git/perso.git modules/userland/files/perso
+else
+    echo "Depending on what you want to install and configure, the folder /etc/puppet/modules/userland/files/enc/ should contain : "
+    echo "id_rsa and id_rsa.pub files"
+    echo ".gnupg folder"
+    echo "openvpn folder"
+fi
+
+while [ -f "/etc/puppet/modules/userland/files/perso/perso.tar.gz.enc" ] && [ ! -f "/etc/puppet/modules/userland/files/perso/perso.tar.gz" ]; do
+    echo "Found a perso encrypted archive. Decrypt it ? [Y/n]"
     read resp
     if [ "$resp" = "y" ] || [ "$resp" = "Y" ] || [ "$resp" = "" ]; then
-        openssl aes-256-cbc -d -a -in /etc/puppet/modules/userland/files/perso.tar.gz.enc -out /etc/puppet/modules/userland/files/perso.tar.gz ; persocode=$?
+        openssl aes-256-cbc -d -a -in /etc/puppet/modules/userland/files/perso/perso.tar.gz.enc -out /etc/puppet/modules/userland/files/perso/perso.tar.gz ; persocode=$?
         if [ "$persocode" -eq "0" ] ; then
-            tar -xf /etc/puppet/modules/userland/files/perso.tar.gz -C /etc/puppet/modules/userland/files/
+            tar -xf /etc/puppet/modules/userland/files/perso/perso.tar.gz -C /etc/puppet/modules/userland/files/
         else
-            rm -f /etc/puppet/modules/userland/files/hp.tar.gz
+            rm -f /etc/puppet/modules/userland/files/perso/hp.tar.gz
         fi
     else
-        echo "You can put you own id_rsa, id_rsa.pub and OpenVpn folder in /etc/puppet/modules/userland/files/enc/"
         break
     fi
 done
