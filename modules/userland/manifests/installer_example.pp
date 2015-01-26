@@ -92,6 +92,18 @@ $httpsProxy=""
 
 
 ##
+#Configure Password store
+##
+
+#class {'userland::pass' :
+#   $pgpKeyId    = "",   
+#   $repoAddress = "",   
+#   $forRoot     = false,
+#   $forUser     = false,
+#}
+
+
+##
 #Install packages
 #Those ones don't need aur
 ##
