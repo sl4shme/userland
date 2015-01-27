@@ -114,7 +114,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-bindsym $mod+Pause exec i3lock --image=$HOME/.i3/lockscreen.png
+bindsym $mod+Pause exec pkill gpg-agent ; i3lock --image=$HOME/.i3/lockscreen.png
 
 bindsym XF86AudioRaiseVolume exec amixer -c 0 -q set Master 2dB+ unmute && amixer -c 0 -q set Headphone 2dB+ unmute && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec amixer -c 0 -q set Master 2dB- unmute && amixer -c 0 -q set Headphone 2dB- unmute && pkill -RTMIN+10 i3blocks
