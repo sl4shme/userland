@@ -3,6 +3,7 @@ class userland::pass (
     $repoAddress = "",
     $forRoot     = false,
     $forUser     = false,
+    $passmenu    = false,
 ) {
     package{'pass' :
         ensure  => installed,
@@ -46,5 +47,15 @@ class userland::pass (
             unless  => "/usr/bin/cat /home/$userland::installer::username/.password-store/.git/config | grep $repoAddress",
             require => Exec['init_user_git'],
         }
+    }
+
+    if $passmenu {
+        file { '/usr/bin/passmenu':
+            ensure => file,
+            owner  => 'root',
+            group  => 'root',
+            mode   => 755,
+            source => "puppet:///modules/userland/passmenu",       
+       } 
     }
 }
