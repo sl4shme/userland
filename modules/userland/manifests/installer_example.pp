@@ -100,6 +100,7 @@ $httpsProxy=""
 #   $repoAddress = "",   
 #   $forRoot     = false,
 #   $forUser     = false,
+#   $passmenu    = false,
 #}
 
 
