@@ -1,4 +1,7 @@
 [user]
-        email =  <%= scope.lookupvar('userland::git::username') %>
-        name = <%= scope.lookupvar('userland::git::email') %>
-
+    email =  <%= scope.lookupvar('userland::git::username') %>
+    name = <%= scope.lookupvar('userland::git::email') %>
+[push]
+    default = simple
+[core]
+    askpass =
