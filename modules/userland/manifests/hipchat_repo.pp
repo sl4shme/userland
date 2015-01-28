@@ -7,7 +7,7 @@ class userland::hipchat_repo {
 
     userland::other_repo { 'atlassian' :
         repoName     => "atlassian",
-        repoServer   => 'http://downloads.hipchat.com/linux/arch/$arch',
+        repoServer   => "http://downloads.hipchat.com/linux/arch/\$arch",
         sigLevel => 'PackageOptional DatabaseRequired TrustAll'
     }
 }

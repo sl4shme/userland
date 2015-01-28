@@ -73,15 +73,17 @@ fi
 #tar -cvf /etc/puppet/modules/userland/files/enc.tar.gz enc/
 #openssl aes-256-cbc -a -salt -in /etc/puppet/modules/userland/files/enc.tar.gz -out /etc/puppet/modules/userland/files/enc.tar.gz.enc
 
-echo "Do you want to clone the personal repo ? [Y/n]"
-read resp
-if [ "$resp" = "y" ] || [ "$resp" = "Y" ] || [ "$resp" = "" ]; then
-    git clone git@git.plop.in:/home/git/perso.git modules/userland/files/perso
-else
-    echo "Depending on what you want to install and configure, the folder /etc/puppet/modules/userland/files/enc/ should contain : "
-    echo "id_rsa and id_rsa.pub files"
-    echo ".gnupg folder"
-    echo "openvpn folder"
+if [ ! -d "/etc/puppet/modules/userland/files/perso" ]; then
+    echo "Do you want to clone the personal repo ? [Y/n]"
+    read resp
+    if [ "$resp" = "y" ] || [ "$resp" = "Y" ] || [ "$resp" = "" ]; then
+        git clone git@git.plop.in:/home/git/perso.git /etc/puppet/modules/userland/files/perso
+    else
+        echo "Depending on what you want to install and configure, the folder /etc/puppet/modules/userland/files/enc/ should contain : "
+        echo "id_rsa and id_rsa.pub files"
+        echo ".gnupg folder"
+        echo "openvpn folder"
+    fi
 fi
 
 while [ -f "/etc/puppet/modules/userland/files/perso/perso.tar.gz.enc" ] && [ ! -f "/etc/puppet/modules/userland/files/perso/perso.tar.gz" ]; do
@@ -92,7 +94,7 @@ while [ -f "/etc/puppet/modules/userland/files/perso/perso.tar.gz.enc" ] && [ ! 
         if [ "$persocode" -eq "0" ] ; then
             tar -xf /etc/puppet/modules/userland/files/perso/perso.tar.gz -C /etc/puppet/modules/userland/files/
         else
-            rm -f /etc/puppet/modules/userland/files/perso/hp.tar.gz
+            rm -f /etc/puppet/modules/userland/files/perso/perso.tar.gz
         fi
     else
         break

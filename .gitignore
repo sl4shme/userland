@@ -1,4 +1,5 @@
 installer.pp
 /modules/userland/files/enc/
+/modules/userland/files/perso/
 hp.tar.gz
 perso.tar.gz
