@@ -92,19 +92,6 @@ $httpsProxy=""
 
 
 ##
-#Configure Password store
-##
-
-#class {'userland::pass' :
-#   $pgpKeyId    = "",   
-#   $repoAddress = "",   
-#   $forRoot     = false,
-#   $forUser     = false,
-#   $passmenu    = false,
-#}
-
-
-##
 #Install packages
 #Those ones don't need aur
 ##
@@ -128,6 +115,35 @@ $httpsProxy=""
 #    flashplayer => false,
 #    gtalk       => false, # Require aur
 #    stage        => 'package',
+#}
+
+
+##
+#Configure Password store
+#Require class git
+##
+
+#class {'userland::pass' :
+#   pgpKeyId    => "",   
+#   repoAddress => "",   
+#   forRoot     => false,
+#   forUser     => false,
+#   passmenu    => false,
+#   stage       => "package",
+#}
+
+
+##
+#Configure Git settings
+#Will overwrite your .gitconfig
+##
+
+#class {'userland::git' :
+#    username => "",
+#    email    => "",
+#    forRoot  => true,
+#    forUser  => true,
+#    stage    => 'package',
 #}
 
 
@@ -289,18 +305,6 @@ $httpsProxy=""
 #}
 
 
-##
-#Configure Git settings
-#Will overwrite your .gitconfig
-##
-
-#class {'userland::git' :
-#    username => "",
-#    email    => "",
-#    forRoot  => true,
-#    forUser  => true,
-#    stage    => 'package',
-#}
 
 
 ##

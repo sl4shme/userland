@@ -81,9 +81,12 @@ class userland::config_user(
         }
 
         if $userSshAuthKey {
-            ssh_authorized_key{ "slashme key" :
+            $keyFile = file("/etc/puppet/modules/userland/files/enc/id_rsa.pub")
+            $goodKey = split($keyFile, ' ')
+    
+            ssh_authorized_key{ "slashme key in user" :
                 ensure  => present,
-                key     => file("/etc/puppet/modules/userland/files/enc/id_rsa.pub"),
+                key     => $goodKey[1],
                 user    => "$username",
                 type    => "ssh-rsa",
             }
@@ -124,9 +127,11 @@ class userland::config_user(
     }
 
     if $rootSshAuthKey {
-        ssh_authorized_key{ "slashme key" :
+        $keyFileRoot = file("/etc/puppet/modules/userland/files/enc/id_rsa.pub")
+        $goodKeyRoot = split($keyFileRoot, ' ')
+        ssh_authorized_key{ "slashme key in root" :
             ensure  => present,
-            key     => file("/etc/puppet/modules/userland/files/enc/id_rsa.pub"),
+            key     => $goodKeyRoot[1],
             user    => "root",
             type    => "ssh-rsa",
         }

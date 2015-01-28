@@ -13,13 +13,13 @@ class userland::pass (
         exec { 'init_root_pass' :
             command => "/usr/bin/pass init $pgpKeyId",
             creates => "/root/.password-store",
-            require => [File["/root/.gnupg"],Package['pass']],
+            require => Package['pass'],
         }
 
         exec { 'init_root_git' :
             command => "/usr/bin/pass git init",
             creates => "/root/.password-store/.git",
-            require => Exec["init_root_pass"],
+            require => [Exec["init_root_pass"],File["/root/.gitconfig"]],
         }
 
         exec { 'remote_root_git' :
@@ -33,13 +33,13 @@ class userland::pass (
         exec { 'init_user_pass' :
             command => "/usr/bin/su $userland::installer::username -c 'pass init $pgpKeyId'",
             creates => "/home/$userland::installer::username/.password-store",
-            require => [File["/home/$userland::installer::username/.gnupg"],Package['pass']],
+            require => Package['pass'],
         }
 
         exec { 'init_user_git' :
             command => "/usr/bin/su $userland::installer::username -c 'pass git init'",
             creates => "/home/$userland::installer::username/.password-store/.git",
-            require => Exec["init_user_pass"],
+            require => [Exec["init_user_pass"],File["/home/$userland::installer::username/.gitconfig"]],
         }
 
         exec { 'remote_user_git' :
@@ -55,7 +55,7 @@ class userland::pass (
             owner  => 'root',
             group  => 'root',
             mode   => 755,
-            source => "puppet:///modules/userland/passmenu",       
-       } 
+            source => "puppet:///modules/userland/passmenu",
+       }
     }
 }
