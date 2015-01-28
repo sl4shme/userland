@@ -43,7 +43,7 @@ class userland::pass (
         }
 
         exec { 'remote_user_git' :
-            command => "/usr/bin/su $userland::installer::username -c 'pass git remote add origin $repoAddress",
+            command => "/usr/bin/su $userland::installer::username -c 'pass git remote add origin $repoAddress'",
             unless  => "/usr/bin/cat /home/$userland::installer::username/.password-store/.git/config | grep $repoAddress",
             require => Exec['init_user_git'],
         }
