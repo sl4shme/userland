@@ -1,0 +1,8 @@
+[Unit]
+Description=Ssh tunnel remote script %I
+
+[Service]
+ExecStart=/usr/bin/tunnelscript %I
+
+[Install]
+WantedBy=multi-user.target

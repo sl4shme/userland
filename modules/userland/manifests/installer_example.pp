@@ -204,6 +204,19 @@ $httpsProxy=""
 
 
 ##
+#Ssh remote tunnel
+##
+
+#class { 'userland::tunnel' :
+#    sshKey     => "", #Leave commented for default 
+#    sshUser    => "", #Leave commented for default 
+#    sshHost    => "", #Leave commented for default 
+#    sshPort    => "", #Leave commented for default 
+#    remotePort => "1664"
+#}
+
+
+##
 #Laptop specific ressources
 ##
 
