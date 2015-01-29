@@ -124,10 +124,6 @@ $httpsProxy=""
 ##
 
 #class {'userland::pass' :
-#   pgpKeyId    => "",   
-#   repoAddress => "",   
-#   forRoot     => false,
-#   forUser     => false,
 #   passmenu    => false,
 #   stage       => "package",
 #}
