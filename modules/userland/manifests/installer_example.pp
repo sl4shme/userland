@@ -153,6 +153,28 @@ $httpsProxy=""
 
 
 ##
+#Newsbeuter server
+#Require /etc/puppet/modules/userland/files/enc/id_rsa.pub
+##
+
+#class { 'userland::newsbeuter_server' :
+#	ncPort => "4242",
+#}
+
+
+##
+#Newsbeuter client
+##
+
+#class { 'userland::newsbeuter_client' :
+#    sshUser    => 'newsbeuter',
+#    sshHost    => "",  #Leave commented for default
+#    ncPort     => 4242,
+#    browserCmd => 'firefox'
+#}
+
+
+##
 #Install Vim
 ##
 
@@ -209,10 +231,10 @@ $httpsProxy=""
 ##
 
 #class { 'userland::tunnel' :
-#    sshKey     => "", #Leave commented for default 
-#    sshUser    => "", #Leave commented for default 
-#    sshHost    => "", #Leave commented for default 
-#    sshPort    => "", #Leave commented for default 
+#    sshKey     => "", #Leave commented for default
+#    sshUser    => "", #Leave commented for default
+#    sshHost    => "", #Leave commented for default
+#    sshPort    => "", #Leave commented for default
 #    remotePort => "1664"
 #}
 
@@ -315,8 +337,6 @@ $httpsProxy=""
 #}
 
 
-
-
 ##
 #Cleanup
 ##
@@ -325,14 +345,6 @@ $httpsProxy=""
 #    stage => 'post',
 #}
 
-
-##
-#Run this manifest daily at 1am
-##
-
-#class {'userland::cron' :
-#    stage => 'post',
-#}
 
 }
 include userland::installer

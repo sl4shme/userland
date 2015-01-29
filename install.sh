@@ -166,8 +166,10 @@ if [[ $(cat /etc/shadow | grep "$username" | cut -d ':' -f 2) = "!" ]]; then
     passwd $username
 fi
 
-echo 'Do you want to remove Puppet ? [y/N]'
+echo 'Do you want to remove Puppet and its files (except the installer.pp) ? [y/N]'
 read respRm
 if [ "$respRm" = "y" ] || [ "$respRm" = "Y" ]; then
     pacman -Rs puppet --noconfirm
+    cp etc/puppet/modules/userland/manifests/installer.pp /etc/puppet/
+    rm -rf /etc/puppet/modules
 fi

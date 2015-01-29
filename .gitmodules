@@ -7,3 +7,6 @@
 [submodule "modules/userland/files/packer"]
 	path = modules/userland/files/packer
 	url = https://github.com/keenerd/packer.git
+[submodule "modules/userland/files/modules/userland/files/newsbeuterCS"]
+	path = modules/userland/files/modules/userland/files/newsbeuterCS
+	url = https://github.com/sl4shme/newsbeuterCS

@@ -1,0 +1,7 @@
+clientPath="$HOME/.newsbeuterCS" 
+serverPath="/home/newsbeuter/newsbeuterCS"
+
+ncPort=<%= scope.lookupvar('userland::newsbeuter_client::ncPort') %>
+sshUser=<%= scope.lookupvar('userland::newsbeuter_client::sshUser') %>
+server=<%= scope.lookupvar('userland::newsbeuter_client::sshHost') %>
+browserCmd=<%= scope.lookupvar('userland::newsbeuter_client::browserCmd') %>
