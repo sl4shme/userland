@@ -205,6 +205,7 @@ $httpsProxy=""
 
 ##
 #Ssh remote tunnel
+#Require a few options on the server for stability (applied with ssh class)
 ##
 
 #class { 'userland::tunnel' :
