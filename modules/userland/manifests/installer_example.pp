@@ -159,6 +159,7 @@ $httpsProxy=""
 
 #class { 'userland::newsbeuter_server' :
 #	ncPort => "4242",
+#	stage  => 'package', 
 #}
 
 
@@ -171,6 +172,7 @@ $httpsProxy=""
 #    sshHost    => "",  #Leave commented for default
 #    ncPort     => 4242,
 #    browserCmd => 'firefox'
+#	 stage      => 'package', 
 #}
 
 

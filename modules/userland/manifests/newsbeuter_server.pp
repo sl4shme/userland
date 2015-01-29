@@ -48,14 +48,6 @@ class userland::newsbeuter_server (
         require => File['/home/newsbeuter/.newsbeuter/'],
     }
 
-    file { '/home/newsbeuter/.newsbeuter/config' :
-        ensure  => file,
-        owner   => 'newsbeuter',
-        group   => 'newsbeuter',
-        source  => 'puppet:///modules/userland/newsbeuterConfig',
-        require => File['/home/newsbeuter/.newsbeuter/'],
-    }
-
     file { '/home/newsbeuter/newsbeuterCS/' :
         ensure  => directory,
         recurse => 'remote',

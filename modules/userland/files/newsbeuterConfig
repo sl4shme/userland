@@ -1,4 +1,4 @@
-browser "/home/newsnbeuter/newsbeuterCS/browser %u"
+browser "/home/newsbeuter/newsbeuterCS/browser %u"
 
 max-items 100 
 show-read-feeds no
