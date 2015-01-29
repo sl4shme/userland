@@ -17,7 +17,7 @@ class userland::newsbeuter_client (
         owner   => "$userland::installer::username",
         group   => "$userland::installer::username",
         content => template('userland/newsbeuterClientParam.erb'),
-        require => File["/home/$userland::installer::username/newsbeuterCS/"],
+        require => File["/home/$userland::installer::username/.newsbeuterCS/"],
     }
 
     file { "/home/$userland::installer::username/.local/bin/newsbeuter" :
@@ -25,5 +25,6 @@ class userland::newsbeuter_client (
         target  => "/home/$userland::installer::username/.newsbeuterCS/newsbeuterClient",
         owner   => "$userland::installer::username",
         group   => "$userland::installer::username",
+        require => File["/home/$userland::installer::username/.newsbeuterCS/"],
     }
 }

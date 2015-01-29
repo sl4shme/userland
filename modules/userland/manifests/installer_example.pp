@@ -171,7 +171,7 @@ $httpsProxy=""
 #    sshUser    => 'newsbeuter',
 #    sshHost    => "",  #Leave commented for default
 #    ncPort     => 4242,
-#    browserCmd => 'firefox'
+#    browserCmd => 'firefox',
 #	 stage      => 'package', 
 #}
 
