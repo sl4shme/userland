@@ -2,7 +2,7 @@
 Description=Smuxi launcher
 
 [Service]
-ExecStart=/usr/bin/smuxi-engine
+ExecStart=/usr/bin/smuxi-server
 User=smuxi
 
 [Install]
