@@ -4,7 +4,6 @@ Description=Smuxi launcher
 [Service]
 ExecStart=/usr/bin/smuxi-engine
 User=smuxi
-WorkingDirectory=/home/smuxi/
 
 [Install]
 WantedBy=multi-user.target
