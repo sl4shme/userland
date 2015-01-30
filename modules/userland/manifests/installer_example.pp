@@ -295,7 +295,9 @@ $httpsProxy=""
 #Require /etc/puppet/modules/userland/files/enc/id_rsa.pub and /etc/puppet/modules/userland/files/enc/smuxi-engine.ini
 ##
 
-#class {'userland::smuxi_server' : }
+#class {'userland::smuxi_server' : 
+#    stage => 'package',
+#}
 
 
 ##
