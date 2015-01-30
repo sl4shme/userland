@@ -1,0 +1,10 @@
+[Unit]
+Description=Smuxi launcher
+
+[Service]
+ExecStart=smuxi-engine
+User=smuxi
+WorkingDirectory=/home/smuxi/
+
+[Install]
+WantedBy=multi-user.target

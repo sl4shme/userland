@@ -83,6 +83,7 @@ if [ ! -d "/etc/puppet/modules/userland/files/perso" ]; then
         echo "id_rsa and id_rsa.pub files"
         echo ".gnupg folder"
         echo "openvpn folder"
+        echo "smuxi-engine.ini"
     fi
 fi
 

@@ -291,6 +291,14 @@ $httpsProxy=""
 
 
 ##
+#Smuxi server installation and configuration
+#Require /etc/puppet/modules/userland/files/enc/id_rsa.pub and /etc/puppet/modules/userland/files/enc/smuxi-engine.ini
+##
+
+#class {'userland::smuxi_server' : }
+
+
+##
 #VPN HP
 ##
 
