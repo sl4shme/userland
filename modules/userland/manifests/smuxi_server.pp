@@ -35,7 +35,7 @@ class userland::smuxi_server (
         ensure  => directory,
         owner   => 'smuxi',
         group   => 'smuxi',
-        require => File['home/smuxi/.config/'],
+        require => File['/home/smuxi/.config/'],
     }
 
     file { '/home/smuxi/.config/smuxi/smuxi-engine.ini' :
