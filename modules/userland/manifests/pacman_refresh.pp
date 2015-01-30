@@ -2,7 +2,7 @@ class userland::pacman_refresh (
     $upgrade = false,
 ) {
     if $upgrade {
-        $options = "-Syu"
+        $options = "-Syu --noconfirm"
     } else {
         $options = "-Sy"
     }
