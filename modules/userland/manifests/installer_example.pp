@@ -71,7 +71,8 @@ $httpsProxy=""
 ##
 
 #class {'userland::pacman_refresh':
-#    stage => 'pacman_refresh',
+#	 upgrade => false,
+#    stage   => 'pacman_refresh',
 #}
 
 
