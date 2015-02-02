@@ -20,7 +20,7 @@ class userland::i3 (
 
     file { "/home/$userland::installer::username/.i3/i3datecal" :
         ensure  => file,
-        content => "puppet:///modules/userland/i3datecal",
+        source  => "puppet:///modules/userland/i3datecal",
         owner   => "$userland::installer::username",
         group   => "$userland::installer::username",
         mode    => 774,

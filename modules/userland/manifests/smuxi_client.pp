@@ -1,8 +1,8 @@
 class userland::smuxi_client (
     $sshKey     = "/home/$userland::installer::username/.ssh/id_rsa",
-    $sshUser    = $userland::installer::mainSshServUser,
+    $sshUser    = $userland::installer::mainSshUser,
     $sshHost    = $userland::installer::mainSshServ,
-    $sshPort    = $userland::installer::mainSshServPort,
+    $sshPort    = $userland::installer::mainSshPort,
     $engineUser,
     $enginePass,
     $engineName,

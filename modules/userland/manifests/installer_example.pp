@@ -238,7 +238,8 @@ $httpsProxy=""
 #    sshUser    => "", #Leave commented for default
 #    sshHost    => "", #Leave commented for default
 #    sshPort    => "", #Leave commented for default
-#    remotePort => "1664"
+#    remotePort => "1664",
+#    stage      => 'package',
 #}
 
 

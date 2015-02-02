@@ -1,8 +1,8 @@
 class userland::tunnel (
     $sshKey  = "/home/$userland::installer::username/.ssh/id_rsa",
-    $sshUser = $userland::installer::mainSshServUser,
+    $sshUser = $userland::installer::mainSshUser,
     $sshHost = $userland::installer::mainSshServ,
-    $sshPort = $userland::installer::mainSshServPort,
+    $sshPort = $userland::installer::mainSshPort,
     $remotePort,
 ) {
     file { '/usr/bin/tunnelscript' :
