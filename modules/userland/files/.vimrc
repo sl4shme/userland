@@ -36,6 +36,7 @@ set number            " Display line numbers
 set showmatch         " Show matching brackets
 set cursorline        " Have a line indicate the cursor location
 set foldmethod=indent " Do the folding in function of the indentation
+set nofoldenable      " No automatic folding at opening of file
 
 """ Moving Around/Editing
 set nostartofline     " Avoid moving cursor to BOL when jumping around
