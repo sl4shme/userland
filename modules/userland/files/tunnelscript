@@ -3,12 +3,11 @@ ip=`echo $1 | cut -d '%' -f1`
 user=`echo $1 | cut -d '%' -f2`
 connport=`echo $1 | cut -d '%' -f3`
 remport=`echo $1 | cut -d '%' -f4`
-keypath=`echo $1 | cut -d '%' -f5`
 
 while true; do
     a=(`ps -ef | grep "$remport:localhost:$connport $user@$ip" | grep -v grep`)
     if [ ! "$a" ]; then
-        ssh -o StrictHostKeyChecking=no -N -R $remport:localhost:$connport $user@$ip -i $keypath
+        ssh -o StrictHostKeyChecking=no -N -R $remport:localhost:$connport $user@$ip
     fi
     sleep 30
 done

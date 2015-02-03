@@ -1,5 +1,4 @@
 class userland::tunnel (
-    $sshKey  = "/home/$userland::installer::username/.ssh/id_rsa",
     $sshUser = $userland::installer::mainSshUser,
     $sshHost = $userland::installer::mainSshServ,
     $sshPort = $userland::installer::mainSshPort,
@@ -22,7 +21,7 @@ class userland::tunnel (
         require => File['/usr/bin/tunnelscript'],
     }
 
-    $string="$sshHost%$sshUser%$sshPort%$remotePort%$sshKey"
+    $string="$sshHost%$sshUser%$sshPort%$remotePort"
 
     service { "tunneler@$string" :
         ensure  => running,
