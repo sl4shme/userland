@@ -2,6 +2,7 @@ browser "/home/newsbeuter/newsbeuterCS/browser %u"
 
 max-items 100 
 show-read-feeds no
+reload-threads 4
 
 color listnormal color244 color234
 color listnormal_unread color244 color234
