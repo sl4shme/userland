@@ -50,6 +50,22 @@ class userland::config_user(
                 mode    => 700,
                 require => User["$username"],
             }
+             file {"/home/$username/.ssh/without" :
+                ensure  => file,
+                owner   => $username,
+                group   => $username,
+                mode    => 600,
+                source  => "puppet:///modules/userland/enc/without",
+                require => [User["$username"],File["/home/$username/.ssh"]]
+            }
+           file {"/home/$username/.ssh/without.pub" :
+                ensure  => file,
+                owner   => $username,
+                group   => $username,
+                mode    => 644,
+                source  => "puppet:///modules/userland/enc/without.pub",
+                require => [User["$username"],File["/home/$username/.ssh"]]
+            }
              file {"/home/$username/.ssh/id_rsa" :
                 ensure  => file,
                 owner   => $username,
@@ -98,6 +114,20 @@ class userland::config_user(
             owner   => "root",
             group   => "root",
             mode    => 700,
+        }
+        file {"/root/.ssh/without" :
+            ensure  => file,
+            owner   => "root",
+            group   => "root",
+            mode    => 600,
+            source  => "puppet:///modules/userland/enc/without",
+        }
+        file {"/root/.ssh/without.pub" :
+            ensure  => file,
+            owner   => "root",
+            group   => "root",
+            mode    => 644,
+            source  => "puppet:///modules/userland/enc/without.pub",
         }
         file {"/root/.ssh/id_rsa" :
             ensure  => file,

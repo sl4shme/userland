@@ -230,16 +230,25 @@ $httpsProxy=""
 
 ##
 #Ssh remote tunnel
-#Require a few options on the server for stability (applied with ssh class)
+#Require /root/.ssh/without
 ##
 
 #class { 'userland::tunnel' :
-#    sshKey     => "", #Leave commented for default
-#    sshUser    => "", #Leave commented for default
+#    sshUser    => "tunnel",
 #    sshHost    => "", #Leave commented for default
 #    sshPort    => "", #Leave commented for default
 #    remotePort => "1664",
 #    stage      => 'package',
+#}
+
+
+##
+#Ssh remote tunnel server
+#Require ssh server
+##
+
+#class {'userland::tunnel_server' : 
+#    stage => 'package',
 #}
 
 

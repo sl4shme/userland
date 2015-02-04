@@ -81,6 +81,7 @@ if [ ! -d "/etc/puppet/modules/userland/files/perso" ]; then
     else
         echo "Depending on what you want to install and configure, the folder /etc/puppet/modules/userland/files/enc/ should contain : "
         echo "id_rsa and id_rsa.pub files"
+        echo "without and without.pub files (ssh key without passphrase)"
         echo ".gnupg folder"
         echo "openvpn folder"
         echo "smuxi-engine.ini"

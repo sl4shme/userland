@@ -97,7 +97,7 @@ bindsym $mod+Shift+r restart
 # Exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
 # Lock screen
-bindsym $mod+Pause exec "pkill gpg-agent ; i3lock --image=$HOME/.i3/lockscreen.png"
+bindsym $mod+Pause exec "pkill -SIGHUP gpg-agent ; i3lock --image=$HOME/.i3/lockscreen.png"
 # Print screen
 bindsym --release Print exec --no-startup-id import $HOME/screenshot-`/bin/date +%Y%m%d-%H:%M:%S`.png
 

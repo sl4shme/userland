@@ -7,7 +7,7 @@ remport=`echo $1 | cut -d '%' -f4`
 while true; do
     a=(`ps -ef | grep "$remport:localhost:$connport $user@$ip" | grep -v grep`)
     if [ ! "$a" ]; then
-        ssh -o StrictHostKeyChecking=no -N -R $remport:localhost:$connport $user@$ip
+        ssh -o StrictHostKeyChecking=no -N -R $remport:localhost:$connport $user@$ip /root/.ssh/without
     fi
     sleep 30
 done

@@ -10,14 +10,23 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+#
+# User Aliases
+#
 
-#                                 
-# User Aliases                    
-#                                 
-                                  
-if [[ -f "$HOME/.zalias" ]]; then 
-    source $HOME/.zalias          
-fi                                
-                                  
+if [[ -f "$HOME/.zalias" ]]; then
+    source $HOME/.zalias
+fi
+
+
+#
+# Gpg agent start
+#
+
+if [[ -d "$HOME/.gnupg" ]] && [[ -f "$HOME/.ssh/id_rsa" ]]; then
+    if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
+       gpg-agent --daemon --quiet
+    fi
+    export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+fi
 
