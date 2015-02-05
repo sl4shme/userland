@@ -257,8 +257,9 @@ $httpsProxy=""
 ##
 
 #class {'userland::laptop' :
-#    wicd  => true,
-#    e6400 => true,
+#    wicd      => false,
+#    e6400     => false,
+#    bluetooth => false,
 #    stage => 'package',
 #}
 
