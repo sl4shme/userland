@@ -125,8 +125,11 @@ while [ "$confirm" != "y" ] && [ "$confirm" != "Y" ]; do
         echo "Found an installer file. What to do ? Edit/Use/Delete [e]"
         read resp
             case $resp in
-               ""| e|E)
-                    nano /etc/puppet/modules/userland/manifests/installer.pp
+                ""| e|E)
+                    if [ -z "$EDITOR" ]; then
+                        EDITOR="nano"
+                    fi
+                    $EDITOR /etc/puppet/modules/userland/manifests/installer.pp
                     echo "Go with this file ? No/Yes/use nOop [n]"
                     read confirm
                     if [ "$confirm" = "o" ] || [ "$confirm" = "O" ]; then

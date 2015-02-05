@@ -2,8 +2,11 @@ class userland::sudo (
     $envKeepProxy = true,
     $allowWheel   = true,
     $allowAur     = true,
+    $insults      = false,
+    $ttywide      = false,
+    $timestamp    = false,
 ) {
-    if $envKeepProxy {        
+    if $envKeepProxy {
         file_line{ "proxy_http" :
             path     => '/etc/sudoers',
             ensure   => present,
@@ -60,6 +63,36 @@ class userland::sudo (
             path     => '/etc/sudoers',
             ensure   => present,
             line     => 'aur ALL=(ALL) NOPASSWD:SETENV: /usr/bin/pacman, /usr/bin/pacman-db-upgrade',
+            multiple => false,
+            after    => 'root ALL=(ALL) ALL',
+        }
+    }
+
+    if $insults {
+        file_line{ "sudo_insults" :
+            path     => '/etc/sudoers',
+            ensure   => present,
+            line     => 'Defaults insults',
+            multiple => false,
+            after    => 'root ALL=(ALL) ALL',
+        }
+    }
+
+    if $ttywide {
+        file_line{ "sudo_ttywide" :
+            path     => '/etc/sudoers',
+            ensure   => present,
+            line     => 'Defaults !tty_tickets',
+            multiple => false,
+            after    => 'root ALL=(ALL) ALL',
+        }
+    }
+
+    if $timestamp {
+        file_line{ "sudo_timestamp" :
+            path     => '/etc/sudoers',
+            ensure   => present,
+            line     => 'Defaults timestamp_timeout=60 ',
             multiple => false,
             after    => 'root ALL=(ALL) ALL',
         }
