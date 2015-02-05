@@ -26,39 +26,24 @@ class userland::hp_vpns (
             }
         }
 
-        file { "/home/$userland::installer::username/hpcs_vpn/" :
+        file { "/etc/hpcs_vpn/" :
             ensure  => directory,
             recurse => remote,
             source  => "puppet:///modules/userland/enc/hpcs_vpn",
-            owner   => "$userland::installer::username",
-            group   => "$userland::installer::username",
-        }
-
-        file { "/home/$userland::installer::username/.local/bin/hpcs_vpn" :
-            ensure  => link,
-            target  => "/home/$userland::installer::username/hpcs_vpn/hpcs_useast.sh",
-            owner   => "$userland::installer::username",
-            group   => "$userland::installer::username",
+            owner   => "root",
+            group   => "root",
         }
     }
 
     if $openVpn {
         ensure_packages(['openvpn'])
 
-        file { "/home/$userland::installer::username/openvpn/" :
+        file { "/etc/openvpn/" :
             ensure  => directory,
             recurse => remote,
             source  => "puppet:///modules/userland/enc/openvpn",
-            owner   => "$userland::installer::username",
-            group   => "$userland::installer::username",
-        }
-
-        file { "/home/$userland::installer::username/.local/bin/hp_openvpn" :
-            ensure => file,
-            source => "puppet:///modules/userland/hp_openvpn",
-            owner  => "$userland::installer::username",
-            group  => "$userland::installer::username",
-            mode   => 774,
+            owner   => "root",
+            group   => "root",
         }
     }
 
