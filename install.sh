@@ -119,6 +119,7 @@ while [ -f "/etc/puppet/modules/userland/files/hp.tar.gz.enc" ] && [ ! -f "/etc/
 done
 
 confirm="n"
+noop=""
 while [ "$confirm" != "y" ] && [ "$confirm" != "Y" ]; do
     if [ -a "/etc/puppet/modules/userland/manifests/installer.pp" ]; then
         echo "Found an installer file. What to do ? Edit/Use/Delete [e]"
@@ -126,12 +127,20 @@ while [ "$confirm" != "y" ] && [ "$confirm" != "Y" ]; do
             case $resp in
                ""| e|E)
                     nano /etc/puppet/modules/userland/manifests/installer.pp
-                    echo "Go with this file ? [N/y]"
+                    echo "Go with this file ? No/Yes/use nOop [n]"
                     read confirm
+                    if [ "$confirm" = "o" ] || [ "$confirm" = "O" ]; then
+                        noop=' --noop '
+                        confirm="y"
+                    fi
                 ;;
                 U|u)
-                    echo "Go with this file ? [N/y]"
+                    echo "Go with this file ? No/Yes/use nOop [n]"
                     read confirm
+                    if [ "$confirm" = "o" ] || [ "$confirm" = "O" ]; then
+                        noop=' --noop '
+                        confirm="y"
+                    fi
                 ;;
                 D|d)
                     rm /etc/puppet/modules/userland/manifests/installer.pp
@@ -143,6 +152,7 @@ while [ "$confirm" != "y" ] && [ "$confirm" != "Y" ]; do
     else
         echo "Generated a new installer file from example, you need to edit it."
         cp /etc/puppet/modules/userland/manifests/installer_example.pp /etc/puppet/modules/userland/manifests/installer.pp
+        ln -s /etc/puppet/modules/userland/manifests/installer.pp /etc/puppet/installer.pp
         sed -i "s#\$httpProxy=\"\"#\$httpProxy=\"$proxy\"#" /etc/puppet/modules/userland/manifests/installer.pp
         sed -i "s#\$httpsProxy=\"\"#\$httpsProxy=\"$sproxy\"#" /etc/puppet/modules/userland/manifests/installer.pp
     fi
@@ -153,7 +163,7 @@ touch /var/log/puppet/installer.log
 puppetCode="6"
 retry="0"
 while [ "$puppetCode" -gt "2" ]; do
-    puppet apply /etc/puppet/modules/userland/manifests/installer.pp --detailed-exitcodes 2>&1 | tee -a /var/log/puppet/installer.log
+    puppet apply /etc/puppet/modules/userland/manifests/installer.pp $noop --detailed-exitcodes 2>&1 | tee -a /var/log/puppet/installer.log
     puppetCode=$PIPESTATUS
     retry=$((retry + 1))
     if [ "$retry" -eq 3 ]; then

@@ -7,7 +7,7 @@ class userland::git (
     if $forRoot {
         file { "/root/.gitconfig" :
             ensure  => file,
-            content => template('userland/.gitconfig'),
+            content => template('userland/gitconfig.erb'),
             owner   => "root",
             group   => "root",
         }
@@ -16,7 +16,7 @@ class userland::git (
     if $forUser {
         file { "/home/$userland::installer::username/.gitconfig" :
             ensure  => file,
-            content => template('userland/.gitconfig'),
+            content => template('userland/gitconfig.erb'),
             owner   => "$userland::installer::username",
             group   => "$userland::installer::username",
         }
