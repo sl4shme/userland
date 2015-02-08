@@ -1,0 +1,2 @@
+#broadcom
+ACTION=="add", ENV{ID_VENDOR}=="0a5c", ENV{ID_MODEL}=="4500" RUN+="/usr/sbin/hid2hci -v $env{ID_VENDOR} -p $env{ID_MODEL} --mode hci"

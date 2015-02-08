@@ -2,7 +2,7 @@ class userland::i3 (
     $laptop        = false,
     $mainInterface 
 ) {
-    $package = ["i3","xf86-video-nouveau","xorg-server","xorg-server-utils",
+    $package = ["i3","xf86-video-nouveau","xf86-input-synaptics","xorg-server","xorg-server-utils",
                 "xorg-xinit","dmenu","ttf-dejavu","feh","pulseaudio",
                 "pulseaudio-alsa","alsa-utils","numlockx","gsimplecal","sysstat","imagemagick"]
     ensure_packages( $package )

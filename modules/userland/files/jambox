@@ -1,0 +1,12 @@
+#!/bin/bash
+
+function echosleep {
+echo power on
+echo connect 00:21:3C:8D:64:65
+sleep 3
+}
+
+echosleep | bluetoothctl | grep "Connection successful"
+if [ "$?" == "0" ] ; then
+    pavucontrol &
+fi
