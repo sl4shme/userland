@@ -77,6 +77,12 @@ if [ ! -d "/etc/puppet/modules/userland/files/perso" ]; then
     echo "Do you want to clone the personal repo ? [Y/n]"
     read resp
     if [ "$resp" = "y" ] || [ "$resp" = "Y" ] || [ "$resp" = "" ]; then
+	if [ ! -f "/usr/bin/ssh" ]; then
+    	    echo "Installing ssh"
+    	    pacman-db-upgrade
+    	    pacman -Sy
+    	    pacman -S openssh --noconfirm
+	fi
         git clone git@git.plop.in:/home/git/perso.git /etc/puppet/modules/userland/files/perso
     else
         echo "Depending on what you want to install and configure, the folder /etc/puppet/modules/userland/files/enc/ should contain : "
