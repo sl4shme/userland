@@ -41,7 +41,7 @@ class userland::laptop (
     }
 
     if $bluetooth {
-        $list1 = ["pulseaudio-alsa","bluez","bluez-libs","bluez-utils","bluez-firmware"]
+        $list1 = ["pulseaudio-alsa","bluez","bluez-libs","bluez-utils","bluez-firmware","pavucontrol"]
         ensure_packages($list1)
 
         file { '/etc/modules-load.d/btusb.conf': 
