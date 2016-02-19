@@ -21,7 +21,7 @@ class userland::smuxi_server (
         require => User['smuxi'],
     }
 
-    $list = ["smuxi-server"]
+    $list = ["smuxi-engine"]
     ensure_packages($list)
 
     file { '/home/smuxi/.config/' :

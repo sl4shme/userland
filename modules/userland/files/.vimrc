@@ -1,24 +1,29 @@
 " ======================= "
 " Vundle
 " ======================= "
+set nocompatible                  " Do not touch
+filetype off                      " Do not touch
 set rtp+=~/.vim/bundle/Vundle.vim " Do not touch
 call vundle#begin()               " Do not touch
-Plugin 'gmarik/Vundle.vim'        " Do not touch
+Plugin 'VundleVim/Vundle.Vim'     " Do not touch
 
 """ Plugins list start
 Plugin 'bling/vim-airline'                " Fancy status bar
+Plugin 'vim-airline/vim-airline-themes'   " Associated themes
 Plugin 'altercation/vim-colors-solarized' " Theme
 Plugin 'scrooloose/syntastic'             " Syntax checking
-Plugin 'scrooloose/nerdtree'	          " File explorer
-Plugin 'scrooloose/nerdcommenter'	      " Comment managment
-Plugin 'ervandew/supertab'	              " Autocompletion
-Plugin 'sjl/gundo.vim'	                  " Visual undo tree
-Plugin 'raimondi/delimitMate'	          " Auto closing of delimiters
-Plugin 'tpope/vim-fugitive'	              " Git wrapper
+Plugin 'scrooloose/nerdtree'              " File explorer
+Plugin 'scrooloose/nerdcommenter'         " Comment managment
+Plugin 'ervandew/supertab'                " Autocompletion
+Plugin 'sjl/gundo.vim'                    " Visual undo tree
+Plugin 'raimondi/delimitMate'             " Auto closing of delimiters
+Plugin 'tpope/vim-fugitive'               " Git wrapper
+Plugin 'terryma/vim-multiple-cursors'     " Multiple cursor
 """ Plugins list end
 
 call vundle#end()         " Do not touch
 filetype plugin indent on " Do not touch
+
 
 " ======================= "
 " Vim Settings
